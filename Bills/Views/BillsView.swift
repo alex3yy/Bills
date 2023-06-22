@@ -10,8 +10,15 @@ import SwiftUI
 struct BillsView: View {
     var body: some View {
         NavigationStack {
-            Text("Bills List")
-                .navigationTitle("Bills")
+            List {
+                ForEach(0...5, id: \.self) { _ in
+                    NavigationLink {
+                        Text("Bill Detail View")
+                    } label: {
+                        BillView()
+                    }
+                }
+            }
         }
     }
 }
