@@ -13,16 +13,16 @@ struct OnboardingView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Text("Bills")
+            Text("Welcome to Bills!")
                 .font(.title)
-            Text("📖")
-                .font(.title)
-            Text("Welcome!")
+            Text("Manage your domains and bills from one place")
                 .font(.title3)
-                .bold()
-            Text("Track your due bills, bills history, upload bills and many more!")
                 .multilineTextAlignment(.center)
-                .padding()
+                .bold()
+            Text("Track your due bills, check bills history, share bills with your tenants and many more!")
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+                .padding(.top, 24)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
