@@ -19,7 +19,7 @@ struct ConnectionsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        //
+                        navigationModel.presentUserInvitationsListView()
                     } label: {
                         Label("Bell", systemImage: "bell")
                             .labelStyle(.iconOnly)
@@ -55,6 +55,20 @@ struct ConnectionsView: View {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button("Done", role: .cancel) {
                                     navigationModel.dismissAddConnectionsView()
+                                }
+                            }
+                        }
+                }
+            }
+
+            .sheet(isPresented: $navigationModel.isPresentingUserInvitationsListView) {
+                NavigationStack {
+                    UserInvitationsListView()
+                        .navigationTitle("Invitations")
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button("Done", role: .cancel) {
+                                    navigationModel.dismissUserInvitationsListView()
                                 }
                             }
                         }
