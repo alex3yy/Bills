@@ -10,6 +10,8 @@ import SwiftUI
 struct BillShareView: View {
     //@EnvironmentObject private var billsModel: BillsModel
 
+    var bill: Bill
+
     @State private var searchText: String = ""
 
     var body: some View {
@@ -32,7 +34,7 @@ struct BillShareView: View {
 
                             } label: {
                                 Text("Share")
-                                    .font(.caption)
+                                    .font(.callout)
                                     .fontWeight(.semibold)
                             }
                             .buttonStyle(.borderedProminent)
@@ -42,7 +44,6 @@ struct BillShareView: View {
                 }
             }
         }
-        .navigationTitle("Share Bill")
         .searchable(text: $searchText)
         .onChange(of: searchText) { newValue in
             //billsModel.searchUser(using: newValue)
@@ -56,7 +57,7 @@ struct BillShareView: View {
 struct BillShareView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            BillShareView()
+            BillShareView(bill: Bill(id: "1"))
         }
     }
 }

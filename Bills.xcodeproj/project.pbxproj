@@ -50,6 +50,7 @@
 		BABB96E62A447248001462B9 /* PersonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96E52A447248001462B9 /* PersonCardView.swift */; };
 		BABB96EA2A44913F001462B9 /* View+IconBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96E92A44913F001462B9 /* View+IconBadge.swift */; };
 		BABB96EC2A4492B9001462B9 /* BillShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96EB2A4492B9001462B9 /* BillShareView.swift */; };
+		BABB96EE2A4495A4001462B9 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96ED2A4495A4001462B9 /* Bill.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,7 @@
 		BABB96E52A447248001462B9 /* PersonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCardView.swift; sourceTree = "<group>"; };
 		BABB96E92A44913F001462B9 /* View+IconBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+IconBadge.swift"; sourceTree = "<group>"; };
 		BABB96EB2A4492B9001462B9 /* BillShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillShareView.swift; sourceTree = "<group>"; };
+		BABB96ED2A4495A4001462B9 /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				BAA0216E2A04058D006FD11E /* Gateway.swift */,
 				BAA021702A04059B006FD11E /* RemoteGateway.swift */,
 				BAA021722A0405D0006FD11E /* User.swift */,
+				BABB96ED2A4495A4001462B9 /* Bill.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				BAA0213A2A03EBBA006FD11E /* ContentView.swift in Sources */,
 				BAA021502A03FFE4006FD11E /* AuthView.swift in Sources */,
 				BAA021482A03F83E006FD11E /* DashboardView.swift in Sources */,
+				BABB96EE2A4495A4001462B9 /* Bill.swift in Sources */,
 				BAA021832A040AD2006FD11E /* UserDTO.swift in Sources */,
 				BAA021522A040034006FD11E /* OnboardingView.swift in Sources */,
 				BAA021972A040B9A006FD11E /* DeleteUserRequest.swift in Sources */,

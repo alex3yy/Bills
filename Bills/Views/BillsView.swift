@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-struct Bill: Identifiable {
-    var id: String
-}
-
 struct BillsView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
 
@@ -32,8 +28,19 @@ struct BillsView: View {
                     }
                 }
             }
+            .navigationTitle("Bills")
             .sheet(item: $navigationModel.selectedBillForSharing) { bill in
-                Text("Connections List View \(bill.id)")
+                NavigationStack {
+                    BillShareView(bill: bill)
+                        .navigationTitle("Share Bill")
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button("Done", role: .cancel) {
+                                    navigationModel.dismissConnectionsListView()
+                                }
+                            }
+                        }
+                }
             }
         }
     }
