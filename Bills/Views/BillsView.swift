@@ -17,6 +17,13 @@ struct BillsView: View {
                     } label: {
                         BillView()
                     }
+                    .contextMenu {
+                        Button {
+                            //
+                        } label: {
+                            Label("Share with...", systemImage: "square.and.arrow.up")
+                        }
+                    }
                 }
             }
         }
