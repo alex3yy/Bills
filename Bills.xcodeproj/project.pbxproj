@@ -49,6 +49,7 @@
 		BABB96E42A444F7C001462B9 /* BillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96E32A444F7C001462B9 /* BillView.swift */; };
 		BABB96E62A447248001462B9 /* PersonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96E52A447248001462B9 /* PersonCardView.swift */; };
 		BABB96EA2A44913F001462B9 /* View+IconBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96E92A44913F001462B9 /* View+IconBadge.swift */; };
+		BABB96EC2A4492B9001462B9 /* BillShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96EB2A4492B9001462B9 /* BillShareView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		BABB96E32A444F7C001462B9 /* BillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillView.swift; sourceTree = "<group>"; };
 		BABB96E52A447248001462B9 /* PersonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCardView.swift; sourceTree = "<group>"; };
 		BABB96E92A44913F001462B9 /* View+IconBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+IconBadge.swift"; sourceTree = "<group>"; };
+		BABB96EB2A4492B9001462B9 /* BillShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillShareView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				BABB96E12A444EAC001462B9 /* BillsView.swift */,
 				BABB96E32A444F7C001462B9 /* BillView.swift */,
 				BABB96E52A447248001462B9 /* PersonCardView.swift */,
+				BABB96EB2A4492B9001462B9 /* BillShareView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				BAA0217A2A04063D006FD11E /* RepositoryRequest.swift in Sources */,
 				BAA021732A0405D0006FD11E /* User.swift in Sources */,
 				BAA021562A040152006FD11E /* AccountSettingsView.swift in Sources */,
+				BABB96EC2A4492B9001462B9 /* BillShareView.swift in Sources */,
 				BAA0214E2A03FF94006FD11E /* BillsModel.swift in Sources */,
 				BAA021382A03EBBA006FD11E /* BillsApp.swift in Sources */,
 			);
