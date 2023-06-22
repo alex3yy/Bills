@@ -9,7 +9,6 @@ import SwiftUI
 
 struct UserConnectionSearchView: View {
     //@EnvironmentObject private var billsModel: BillsModel
-    //let userMetadata: UserMetadata
 
     @State private var searchText: String = ""
 
@@ -22,18 +21,10 @@ struct UserConnectionSearchView: View {
                     .padding(.horizontal, 24)
             } else {
                 List {
-                    ForEach(0...5, id: \.self) { _ in
-                        HStack(alignment: .center) {
-                            Image(systemName: "person")
-                                .resizable()
-                                .padding()
-                                .frame(width: 70, height: 70)
-                                .background(.gray.opacity(0.1))
-                                .clipShape(Circle())
-
-                            Text("John Appleseed")
-                                .font(.system(size: 17))
-                                .fontWeight(.semibold)
+                    ForEach(0...5, id: \.self) { userId in
+                        HStack {
+                            let user = User(id: userId.formatted(), name: "John Appleseed", email: "", photoURL: nil)
+                            PersonCardView(user: user)
 
                             Spacer()
 
