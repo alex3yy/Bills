@@ -12,9 +12,26 @@ struct ConnectionsView: View {
     @EnvironmentObject private var billsModel: BillsModel
     @EnvironmentObject private var navigationModel: NavigationModel
 
+    @State private var range1: [Int] = [1, 2, 3, 4, 5]
+    @State private var range2: [Int] = [1, 2, 3, 4, 5]
+
     var body: some View {
         NavigationStack {
-            Text("Connections List View")
+            List {
+                Section("Tenants") {
+                    ForEach(range1, id: \.self) { index in
+                        PersonCardView(user: User(id: "\(index)", name: "Tenant \(index)"))
+                    }
+                    .onDelete { range1.remove(atOffsets: $0) }
+                }
+
+                Section("Landlords") {
+                    ForEach(range2, id: \.self) { index in
+                        PersonCardView(user: User(id: "\(index)", name: "Landlord \(index)"))
+                    }
+                    .onDelete { range2.remove(atOffsets: $0) }
+                }
+            }
             .navigationTitle("Connections")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
