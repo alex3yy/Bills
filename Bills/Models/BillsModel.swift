@@ -42,6 +42,10 @@ final class BillsModel: ObservableObject {
         registerAuthStateObserver()
     }
 
+    var activeInvitationsCount: Int {
+        2
+    }
+    
     /// Signs out the current user.
     @MainActor
     func signOut() {

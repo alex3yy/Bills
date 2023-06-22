@@ -17,6 +17,7 @@ enum Tab {
 
 struct DashboardView: View {
 
+    @EnvironmentObject private var billsModel: BillsModel
     @EnvironmentObject private var navigationModel: NavigationModel
 
     var body: some View {
@@ -36,6 +37,7 @@ struct DashboardView: View {
                     Label("Connections", systemImage: "person.3.fill")
                 }
                 .tag(Tab.connections)
+                .badge(billsModel.activeInvitationsCount)
             AccountView()
                 .tabItem {
                     Label("Account", systemImage: "person.circle.fill")
@@ -48,6 +50,7 @@ struct DashboardView: View {
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
         DashboardView()
+            .environmentObject(BillsModel(gateway: .remote))
             .environmentObject(NavigationModel())
     }
 }
