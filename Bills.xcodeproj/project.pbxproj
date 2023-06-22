@@ -46,6 +46,7 @@
 		BABB96DC2A442DDE001462B9 /* UserConnectionSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96DB2A442DDE001462B9 /* UserConnectionSearchView.swift */; };
 		BABB96DE2A444680001462B9 /* UserInvitationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96DD2A444680001462B9 /* UserInvitationsListView.swift */; };
 		BABB96E22A444EAC001462B9 /* BillsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96E12A444EAC001462B9 /* BillsView.swift */; };
+		BABB96E42A444F7C001462B9 /* BillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96E32A444F7C001462B9 /* BillView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		BABB96DB2A442DDE001462B9 /* UserConnectionSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConnectionSearchView.swift; sourceTree = "<group>"; };
 		BABB96DD2A444680001462B9 /* UserInvitationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInvitationsListView.swift; sourceTree = "<group>"; };
 		BABB96E12A444EAC001462B9 /* BillsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillsView.swift; sourceTree = "<group>"; };
+		BABB96E32A444F7C001462B9 /* BillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 				BABB96DB2A442DDE001462B9 /* UserConnectionSearchView.swift */,
 				BABB96DD2A444680001462B9 /* UserInvitationsListView.swift */,
 				BABB96E12A444EAC001462B9 /* BillsView.swift */,
+				BABB96E32A444F7C001462B9 /* BillView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAA0217B2A04063D006FD11E /* RepositoryServiceError.swift in Sources */,
+				BABB96E42A444F7C001462B9 /* BillView.swift in Sources */,
 				BAA021712A04059B006FD11E /* RemoteGateway.swift in Sources */,
 				BAA021792A04063D006FD11E /* RepositoryService.swift in Sources */,
 				BAA0213A2A03EBBA006FD11E /* ContentView.swift in Sources */,
