@@ -11,6 +11,7 @@ final class NavigationModel: ObservableObject {
     @Published var selectedTab: Tab = .home
     @Published var isPresentingAddConnectionsView: Bool = false
     @Published var isPresentingUserInvitationsListView: Bool = false
+    @Published var selectedBillForSharing: Bill?
     
     func reset() {
         selectedTab = .home
@@ -31,5 +32,13 @@ final class NavigationModel: ObservableObject {
 
     func dismissUserInvitationsListView() {
         isPresentingUserInvitationsListView = false
+    }
+
+    func presentConnectionsListView(for bill: Bill) {
+        selectedBillForSharing = bill
+    }
+
+    func dismissConnectionsListView() {
+        selectedBillForSharing = nil
     }
 }
