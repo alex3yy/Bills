@@ -27,7 +27,7 @@ struct DashboardView: View {
                     Label("My List", systemImage: "house.fill")
                 }
                 .tag(Tab.home)
-            Text("Bills")
+            BillsView()
                 .tabItem {
                     Label("Bills", systemImage: "doc.text.fill")
                 }
