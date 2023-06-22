@@ -48,6 +48,7 @@
 		BABB96E22A444EAC001462B9 /* BillsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96E12A444EAC001462B9 /* BillsView.swift */; };
 		BABB96E42A444F7C001462B9 /* BillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96E32A444F7C001462B9 /* BillView.swift */; };
 		BABB96E62A447248001462B9 /* PersonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96E52A447248001462B9 /* PersonCardView.swift */; };
+		BABB96EA2A44913F001462B9 /* View+IconBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96E92A44913F001462B9 /* View+IconBadge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		BABB96E12A444EAC001462B9 /* BillsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillsView.swift; sourceTree = "<group>"; };
 		BABB96E32A444F7C001462B9 /* BillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillView.swift; sourceTree = "<group>"; };
 		BABB96E52A447248001462B9 /* PersonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCardView.swift; sourceTree = "<group>"; };
+		BABB96E92A44913F001462B9 /* View+IconBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+IconBadge.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 		BAA0214C2A03F91F006FD11E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				BABB96E92A44913F001462B9 /* View+IconBadge.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAA0217B2A04063D006FD11E /* RepositoryServiceError.swift in Sources */,
+				BABB96EA2A44913F001462B9 /* View+IconBadge.swift in Sources */,
 				BABB96E42A444F7C001462B9 /* BillView.swift in Sources */,
 				BAA021712A04059B006FD11E /* RemoteGateway.swift in Sources */,
 				BAA021792A04063D006FD11E /* RepositoryService.swift in Sources */,

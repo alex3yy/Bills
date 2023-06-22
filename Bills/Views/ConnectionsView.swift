@@ -40,15 +40,7 @@ struct ConnectionsView: View {
                     } label: {
                         Label("Bell", systemImage: "bell")
                             .labelStyle(.iconOnly)
-                            .overlay(alignment: .topTrailing) {
-                                Text(billsModel.activeInvitationsCount.formatted())
-                                    .font(.caption)
-                                    .foregroundColor(.white)
-                                    .padding(4)
-                                    .background(.red)
-                                    .clipShape(Circle())
-                                    .offset(x: 4, y: -6)
-                            }
+                            .iconBadge(billsModel.activeInvitationsCount)
                     }
                 }
 
@@ -77,7 +69,6 @@ struct ConnectionsView: View {
                         }
                 }
             }
-
             .sheet(isPresented: $navigationModel.isPresentingUserInvitationsListView) {
                 NavigationStack {
                     UserInvitationsListView()
