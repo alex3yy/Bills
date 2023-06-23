@@ -11,43 +11,42 @@ struct UserConnectionSearchView: View {
     //@EnvironmentObject private var billsModel: BillsModel
 
     @State private var searchText: String = ""
+    @State private var searchTask: Task<Void, Never>?
+    @State private var isSearching: Bool = false
 
-    let mockedNames = [
-        "Ben Still",
-        "Cristiano Ronaldo",
-        "Mason Hugh",
-        "Martin Fowler",
-        "Dwayne Johnson",
-        "Mark Lee",
-        "Emily Duncan",
-        "Natalie Gurman",
-        "Tim Cook",
-        "George Beto"
-    ]
+    @State private var matchingUser: User?
 
     var body: some View {
         Group {
-            if searchText.isEmpty {
-                Text("Search for a user in order to invite him to join your managed domain.")
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 24)
+            if isSearching {
+                ProgressView()
             } else {
-                List {
-                    ForEach(0...5, id: \.self) { userId in
-                        HStack {
-                            let user = User(id: userId.formatted(), name: mockedNames[userId], email: "", photoURL: nil)
-                            PersonCardView(user: user)
+                if searchText.isEmpty {
+                    Text("Search for a user in order to invite him to join your managed domain.")
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 24)
+                } else {
+                    if let matchingUser {
+                        List {
+                            HStack {
+                                PersonCardView(user: matchingUser)
 
-                            Spacer()
+                                Spacer()
 
-                            Button {
+                                Button {
 
-                            } label: {
-                                Text("Invite")
+                                } label: {
+                                    Text("Invite")
+                                }
+                                .buttonStyle(.borderedProminent)
                             }
-                            .buttonStyle(.borderedProminent)
                         }
+                    } else {
+                        Text("No user was found with the provided id.")
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 24)
                     }
                 }
             }
@@ -55,10 +54,21 @@ struct UserConnectionSearchView: View {
         .navigationTitle("Add Connection")
         .searchable(text: $searchText)
         .onChange(of: searchText) { newValue in
-            //billsModel.searchUser(using: newValue)
+            performSearch()
         }
         .onSubmit {
-            //billsModel.searchUser(using: newValue)
+            performSearch()
+        }
+    }
+
+    private func performSearch() {
+        searchTask?.cancel()
+
+        searchTask = Task {
+            isSearching = true
+            try? await Task.sleep(for: .seconds(2))
+            //billsModel.searchUser(using: searchText)
+            isSearching = false
         }
     }
 }
