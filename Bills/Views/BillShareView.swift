@@ -14,6 +14,15 @@ struct BillShareView: View {
 
     @State private var searchText: String = ""
 
+    let mockedNames = [
+        "John Appleseed",
+        "Jane Doe",
+        "Mason Hugh",
+        "Martin Fowler",
+        "Dwayne Johnson",
+        "Mark Lee"
+    ]
+
     var body: some View {
         Group {
             if searchText.isEmpty { //billsModel.connections.isEmpty
@@ -25,7 +34,7 @@ struct BillShareView: View {
                 List {
                     ForEach(0...5, id: \.self) { userId in
                         HStack {
-                            let user = User(id: userId.formatted(), name: "John Appleseed", email: "", photoURL: nil)
+                            let user = User(id: userId.formatted(), name: mockedNames[userId], email: "", photoURL: nil)
                             PersonCardView(user: user)
 
                             Spacer()

@@ -10,15 +10,19 @@ import SwiftUI
 struct UserInvitationsListView: View {
     @EnvironmentObject private var billsModel: BillsModel
 
-    var body: some View {
+    let mockedNames = [
+        "Alex Zaharia",
+        "Cristiana Chiuzan"
+    ]
 
+    var body: some View {
         if billsModel.activeInvitationsCount == 0 {
             Text("There are no invitations yet.")
                 .foregroundColor(.secondary)
         } else {
             List {
-                ForEach(0...5, id: \.self) { _ in
-                    UserInvitationView()
+                ForEach(0...billsModel.activeInvitationsCount-1, id: \.self) { userId in
+                    UserInvitationView(user: User(id: userId.formatted(), name: mockedNames[userId]))
                 }
             }
         }

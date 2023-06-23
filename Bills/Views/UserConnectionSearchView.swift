@@ -12,6 +12,19 @@ struct UserConnectionSearchView: View {
 
     @State private var searchText: String = ""
 
+    let mockedNames = [
+        "Ben Still",
+        "Cristiano Ronaldo",
+        "Mason Hugh",
+        "Martin Fowler",
+        "Dwayne Johnson",
+        "Mark Lee",
+        "Emily Duncan",
+        "Natalie Gurman",
+        "Tim Cook",
+        "George Beto"
+    ]
+
     var body: some View {
         Group {
             if searchText.isEmpty {
@@ -23,7 +36,7 @@ struct UserConnectionSearchView: View {
                 List {
                     ForEach(0...5, id: \.self) { userId in
                         HStack {
-                            let user = User(id: userId.formatted(), name: "John Appleseed", email: "", photoURL: nil)
+                            let user = User(id: userId.formatted(), name: mockedNames[userId], email: "", photoURL: nil)
                             PersonCardView(user: user)
 
                             Spacer()

@@ -12,22 +12,35 @@ struct ConnectionsView: View {
     @EnvironmentObject private var billsModel: BillsModel
     @EnvironmentObject private var navigationModel: NavigationModel
 
-    @State private var range1: [Int] = [1, 2, 3, 4, 5]
-    @State private var range2: [Int] = [1, 2, 3, 4, 5]
+    @State private var range1: [Int] = [0, 1, 2, 3, 4]
+    @State private var range2: [Int] = [5, 6, 7, 8, 9]
+
+    let mockedNames = [
+        "John Appleseed",
+        "Jane Doe",
+        "Mason Hugh",
+        "Martin Fowler",
+        "Dwayne Johnson",
+        "Mark Lee",
+        "Emily Duncan",
+        "Natalie Gurman",
+        "Tim Cook",
+        "George Beto"
+    ]
 
     var body: some View {
         NavigationStack {
             List {
                 Section("Tenants") {
                     ForEach(range1, id: \.self) { index in
-                        PersonCardView(user: User(id: "\(index)", name: "Tenant \(index)"))
+                        PersonCardView(user: User(id: "\(index)", name: mockedNames[index]))
                     }
                     .onDelete { range1.remove(atOffsets: $0) }
                 }
 
                 Section("Landlords") {
                     ForEach(range2, id: \.self) { index in
-                        PersonCardView(user: User(id: "\(index)", name: "Landlord \(index)"))
+                        PersonCardView(user: User(id: "\(index)", name: mockedNames[index]))
                     }
                     .onDelete { range2.remove(atOffsets: $0) }
                 }
