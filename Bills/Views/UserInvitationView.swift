@@ -8,20 +8,23 @@
 import SwiftUI
 
 struct UserInvitationView: View {
+
+    var user: User
+
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             Image(systemName: "person")
                 .resizable()
                 .padding()
-                .frame(width: 70, height: 70)
+                .frame(width: 60, height: 60)
                 .background(.gray.opacity(0.1))
                 .clipShape(Circle())
 
             VStack(alignment: .leading, spacing: 8) {
-                Text("John Appleseed")
-                    .font(.system(size: 17))
-                    .fontWeight(.semibold)
-                Text("Wants to add you to his managed domain.")
+                Text(user.name)
+                    .font(.headline)
+
+                Text("Wants to add you to his or her managed domain.")
                     .font(.subheadline)
             }
 
@@ -48,7 +51,7 @@ struct UserInvitationView: View {
 
 struct UserInvitationView_Previews: PreviewProvider {
     static var previews: some View {
-        UserInvitationView()
+        UserInvitationView(user: User(id: "1", name: "John Appleseed"))
             .padding()
     }
 }
