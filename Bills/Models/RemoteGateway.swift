@@ -98,4 +98,12 @@ struct RemoteGateway: Gateway {
 
         return response.invitations.map(Invitation.init)
     }
+
+    func deleteUserInvitation(senderId: User.ID, receiverId: User.ID) async throws {
+        var request = DeleteUserInvitationRequest()
+        request.senderUserId = senderId
+        request.receiverUserId = receiverId
+
+        _ = try await request.response()
+    }
 }

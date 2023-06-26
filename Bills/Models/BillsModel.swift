@@ -205,4 +205,11 @@ final class BillsModel: ObservableObject {
 
         invitations = try await gateway.getUserInvitations(userId: user.id)
     }
+
+    @MainActor
+    func deleteUserInvitation(for id: User.ID) async throws {
+        guard let user else { fatalError("No current user.") }
+
+        try await gateway.deleteUserInvitation(senderId: user.id, receiverId: id)
+    }
 }

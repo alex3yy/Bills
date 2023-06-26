@@ -59,6 +59,7 @@
 		BABB96FA2A49A774001462B9 /* CheckInvitedUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96F92A49A774001462B9 /* CheckInvitedUserRequest.swift */; };
 		BABB96FC2A49B845001462B9 /* GetUserInvitationsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96FB2A49B845001462B9 /* GetUserInvitationsRequest.swift */; };
 		BABB96FE2A49B9EB001462B9 /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96FD2A49B9EB001462B9 /* Invitation.swift */; };
+		BABB97022A49D04D001462B9 /* DeleteUserInvitationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB97012A49D04D001462B9 /* DeleteUserInvitationRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		BABB96F92A49A774001462B9 /* CheckInvitedUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInvitedUserRequest.swift; sourceTree = "<group>"; };
 		BABB96FB2A49B845001462B9 /* GetUserInvitationsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserInvitationsRequest.swift; sourceTree = "<group>"; };
 		BABB96FD2A49B9EB001462B9 /* Invitation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
+		BABB97012A49D04D001462B9 /* DeleteUserInvitationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserInvitationRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +259,7 @@
 				BABB96F32A4982E9001462B9 /* InviteUserRequest.swift */,
 				BABB96F92A49A774001462B9 /* CheckInvitedUserRequest.swift */,
 				BABB96FB2A49B845001462B9 /* GetUserInvitationsRequest.swift */,
+				BABB97012A49D04D001462B9 /* DeleteUserInvitationRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				BAA021982A040B9A006FD11E /* AddUserRequest.swift in Sources */,
 				BAA0219C2A040B9A006FD11E /* UpdateUserRequest.swift in Sources */,
 				BAA021932A040B9A006FD11E /* GetUserRequest.swift in Sources */,
+				BABB97022A49D04D001462B9 /* DeleteUserInvitationRequest.swift in Sources */,
 				BABB96FE2A49B9EB001462B9 /* Invitation.swift in Sources */,
 				BABB96DC2A442DDE001462B9 /* UserConnectionSearchView.swift in Sources */,
 				BAA0216F2A04058D006FD11E /* Gateway.swift in Sources */,

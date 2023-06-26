@@ -33,7 +33,12 @@ struct UserInvitationsListView: View {
                         if !receivedInvitations.isEmpty {
                             Section("Received") {
                                 ForEach(receivedInvitations) { invitation in
-                                    UserInvitationView(invitation: invitation)
+                                    UserInvitationView(invitation: invitation) {
+                                        //
+                                    } deleteAction: {
+                                        try await deleteInvitation(for: invitation.user.id)
+                                    }
+
                                 }
                             }
                         }
@@ -41,7 +46,9 @@ struct UserInvitationsListView: View {
                         if !sentInvitations.isEmpty {
                             Section("Sent") {
                                 ForEach(sentInvitations) { invitation in
-                                    UserInvitationView(invitation: invitation)
+                                    UserInvitationView(invitation: invitation, deleteAction: {
+                                        try await deleteInvitation(for: invitation.user.id)
+                                    })
                                 }
                             }
                         }
@@ -65,6 +72,11 @@ struct UserInvitationsListView: View {
                 print(error)
             }
         }
+    }
+
+    private func deleteInvitation(for id: User.ID) async throws {
+        try await billsModel.deleteUserInvitation(for: id)
+        getUserInvitations()
     }
 }
 

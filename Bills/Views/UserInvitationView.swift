@@ -10,19 +10,24 @@ import SwiftUI
 struct UserInvitationView: View {
 
     var invitation: Invitation
+    var acceptAction: () -> Void = {}
+    var deleteAction: () async throws -> Void = {}
 
     var body: some View {
         switch invitation.status {
         case .received:
-            ReceivedInvitationCardView(user: invitation.user)
+            ReceivedInvitationCardView(user: invitation.user, acceptAction: acceptAction, deleteAction: deleteAction)
         case .sent:
-            SentInvitationCardView(user: invitation.user)
+            SentInvitationCardView(user: invitation.user, deleteAction: deleteAction)
         }
     }
 }
 
 private struct SentInvitationCardView: View {
     var user: User
+    var deleteAction: () async throws -> Void
+
+    @State private var isDeletingInvitation: Bool = false
 
     var body: some View {
         HStack(alignment: .top) {
@@ -44,19 +49,39 @@ private struct SentInvitationCardView: View {
             Spacer()
 
             Button(role: .destructive) {
-
+                Task {
+                    do {
+                        isDeletingInvitation = true
+                        try await deleteAction()
+                        isDeletingInvitation = false
+                    } catch {
+                        isDeletingInvitation = false
+                        print(error)
+                    }
+                }
             } label: {
                 Label("Remove", systemImage: "trash")
                     .labelStyle(.iconOnly)
                     .foregroundColor(.white)
+                    .opacity(isDeletingInvitation ? 0 : 1)
+                    .overlay {
+                        if isDeletingInvitation {
+                            ProgressView()
+                        }
+                    }
             }
             .buttonStyle(.borderedProminent)
+            .disabled(isDeletingInvitation)
         }
     }
 }
 
 private struct ReceivedInvitationCardView: View {
     var user: User
+    var acceptAction: () -> Void
+    var deleteAction: () async throws -> Void
+
+    @State private var isDeletingInvitation: Bool = false
 
     var body: some View {
         HStack(alignment: .top) {
@@ -78,7 +103,7 @@ private struct ReceivedInvitationCardView: View {
             Spacer()
 
             Button {
-
+                acceptAction()
             } label: {
                 Image(systemName: "checkmark")
                     .frame(width: 20, height: 20)
@@ -86,12 +111,28 @@ private struct ReceivedInvitationCardView: View {
             .buttonStyle(.borderedProminent)
 
             Button(role: .destructive) {
-
+                Task {
+                    do {
+                        isDeletingInvitation = true
+                        try await deleteAction()
+                        isDeletingInvitation = false
+                    } catch {
+                        isDeletingInvitation = false
+                        print(error)
+                    }
+                }
             } label: {
                 Image(systemName: "xmark")
                     .frame(width: 20, height: 20)
+                    .opacity(isDeletingInvitation ? 0 : 1)
+                    .overlay {
+                        if isDeletingInvitation {
+                            ProgressView()
+                        }
+                    }
             }
             .buttonStyle(.borderedProminent)
+            .disabled(isDeletingInvitation)
         }
     }
 }

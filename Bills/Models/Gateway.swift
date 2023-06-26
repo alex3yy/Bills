@@ -21,4 +21,5 @@ protocol Gateway {
     func inviteUser(senderId: User.ID, receiverId: User.ID) async throws
     func invitedUser(senderId: User.ID, receiverId: User.ID) async throws -> Bool
     func getUserInvitations(userId: User.ID) async throws -> [Invitation]
+    func deleteUserInvitation(senderId: User.ID, receiverId: User.ID) async throws
 }
