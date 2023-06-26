@@ -24,7 +24,7 @@ public struct RepositoryServiceError: Error, LocalizedError {
     }
 
     /// The domain of request errors.
-    public let RepositoryServiceErrorDomain: String = Self.errorDomain
+    public let repositoryServiceErrorDomain: String = Self.errorDomain
 
     public enum Code: Int {
 

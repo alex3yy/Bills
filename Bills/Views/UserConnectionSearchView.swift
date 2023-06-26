@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserConnectionSearchView: View {
-    //@EnvironmentObject private var billsModel: BillsModel
+    @EnvironmentObject private var billsModel: BillsModel
 
     @State private var searchText: String = ""
     @State private var searchTask: Task<Void, Never>?
@@ -27,7 +27,7 @@ struct UserConnectionSearchView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 24)
                 } else {
-                    if let matchingUser {
+                    if let matchingUser = billsModel.searchedUser {
                         List {
                             HStack {
                                 PersonCardView(user: matchingUser)
@@ -62,13 +62,24 @@ struct UserConnectionSearchView: View {
     }
 
     private func performSearch() {
+
+        // Cancel previous task.
         searchTask?.cancel()
 
+        guard !searchText.isEmpty else {
+            return
+        }
+
         searchTask = Task {
-            isSearching = true
-            try? await Task.sleep(for: .seconds(2))
-            //billsModel.searchUser(using: searchText)
-            isSearching = false
+            do {
+                isSearching = true
+                try await Task.sleep(for: .seconds(2))
+                try await billsModel.searchUser(for: searchText)
+                isSearching = false
+            } catch {
+                isSearching = false
+                print(error)
+            }
         }
     }
 }
@@ -77,6 +88,7 @@ struct UserConnectionSearchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             UserConnectionSearchView()
+                .environmentObject(BillsModel(gateway: .remote))
         }
     }
 }

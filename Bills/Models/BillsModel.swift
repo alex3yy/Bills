@@ -21,14 +21,22 @@ extension BillsModel {
 @MainActor
 final class BillsModel: ObservableObject {
 
+    /// A gateway responsible for the repository service calls.
+    private let gateway: Gateway
+
+    init(gateway: Gateway) {
+        self.gateway = gateway
+
+        registerAuthStateObserver()
+    }
+
+    // MARK: - Auth variables
+
     /// Value representing the current auth state.
     @Published private(set) var authState: AuthState = .unknown
 
     /// Value representing the current user.
     @Published var user: User?
-
-    /// A gateway responsible for the repository service calls.
-    private let gateway: Gateway
 
     /// Token referencing the closure registered as auth state change handler.
     private var authStateChangeObserver: AuthStateDidChangeListenerHandle?
@@ -36,11 +44,12 @@ final class BillsModel: ObservableObject {
     /// A boolean indicating that the user details were stored on a remote repository.
     private var isUserStored: Bool = false
 
-    init(gateway: Gateway) {
-        self.gateway = gateway
+    // MARK: - Search Variables
 
-        registerAuthStateObserver()
-    }
+    /// Value representing the searched user.
+    @Published var searchedUser: User?
+
+    // MARK: - Invitations Variables
 
     var activeInvitationsCount: Int {
         2
@@ -156,5 +165,16 @@ final class BillsModel: ObservableObject {
     func deleteUser(_ userID: String) async throws {
         // Mark user as deleted.
         _ = try await gateway.deleteUser(id: userID)
+    }
+
+    func searchUser(for id: User.ID) async throws {
+        guard !id.isEmpty,
+              id.contains(where: { $0.isLetter || $0.isWholeNumber })
+        else {
+            return
+        }
+
+        let foundUser = try await gateway.searchUser(id: id)
+        self.searchedUser = foundUser
     }
 }

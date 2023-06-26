@@ -17,6 +17,8 @@ extension Gateway where Self == RemoteGateway {
 
 struct RemoteGateway: Gateway {
 
+    // MARK: - Auth user methods
+
     func getUser(id: User.ID) async throws -> User {
         var request = GetUserRequest()
         request.id = id
@@ -55,5 +57,16 @@ struct RemoteGateway: Gateway {
         request.id = id
 
         _ = try await request.response()
+    }
+
+    // MARK: - Search user methods
+
+    func searchUser(id: User.ID) async throws -> User? {
+        var request = SearchUserRequest()
+        request.id = id
+
+        let response = try await request.response()
+
+        return User(response.user)
     }
 }

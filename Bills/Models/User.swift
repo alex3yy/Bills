@@ -50,3 +50,12 @@ extension User {
         self.photoURL = URL(string: userDto.photoUrl ?? "")
     }
 }
+
+extension User {
+    init(_ userMetadataDto: UserMetadataDTO) {
+        self.id = userMetadataDto.uid
+        self.email = ""
+        self.name = userMetadataDto.name
+        self.photoURL = URL(string: userMetadataDto.photoUrl ?? "")
+    }
+}
