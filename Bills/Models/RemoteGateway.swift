@@ -89,4 +89,13 @@ struct RemoteGateway: Gateway {
 
         return response.isInvited
     }
+
+    func getUserInvitations(userId: User.ID) async throws -> [Invitation] {
+        var request = GetUserInvitationsRequest()
+        request.userId = userId
+
+        let response = try await request.response()
+
+        return response.invitations.map(Invitation.init)
+    }
 }

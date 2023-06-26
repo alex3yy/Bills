@@ -57,6 +57,8 @@
 		BABB96F62A4985AB001462B9 /* InvitationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96F52A4985AB001462B9 /* InvitationDTO.swift */; };
 		BABB96F82A498DC8001462B9 /* GetUserMetadataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96F72A498DC8001462B9 /* GetUserMetadataRequest.swift */; };
 		BABB96FA2A49A774001462B9 /* CheckInvitedUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96F92A49A774001462B9 /* CheckInvitedUserRequest.swift */; };
+		BABB96FC2A49B845001462B9 /* GetUserInvitationsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96FB2A49B845001462B9 /* GetUserInvitationsRequest.swift */; };
+		BABB96FE2A49B9EB001462B9 /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96FD2A49B9EB001462B9 /* Invitation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +106,8 @@
 		BABB96F52A4985AB001462B9 /* InvitationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationDTO.swift; sourceTree = "<group>"; };
 		BABB96F72A498DC8001462B9 /* GetUserMetadataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserMetadataRequest.swift; sourceTree = "<group>"; };
 		BABB96F92A49A774001462B9 /* CheckInvitedUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInvitedUserRequest.swift; sourceTree = "<group>"; };
+		BABB96FB2A49B845001462B9 /* GetUserInvitationsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserInvitationsRequest.swift; sourceTree = "<group>"; };
+		BABB96FD2A49B9EB001462B9 /* Invitation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,7 @@
 				BAA021702A04059B006FD11E /* RemoteGateway.swift */,
 				BAA021722A0405D0006FD11E /* User.swift */,
 				BABB96ED2A4495A4001462B9 /* Bill.swift */,
+				BABB96FD2A49B9EB001462B9 /* Invitation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -251,6 +256,7 @@
 				BABB96EF2A45CD0D001462B9 /* SearchUserRequest.swift */,
 				BABB96F32A4982E9001462B9 /* InviteUserRequest.swift */,
 				BABB96F92A49A774001462B9 /* CheckInvitedUserRequest.swift */,
+				BABB96FB2A49B845001462B9 /* GetUserInvitationsRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -357,6 +363,7 @@
 				BAA021982A040B9A006FD11E /* AddUserRequest.swift in Sources */,
 				BAA0219C2A040B9A006FD11E /* UpdateUserRequest.swift in Sources */,
 				BAA021932A040B9A006FD11E /* GetUserRequest.swift in Sources */,
+				BABB96FE2A49B9EB001462B9 /* Invitation.swift in Sources */,
 				BABB96DC2A442DDE001462B9 /* UserConnectionSearchView.swift in Sources */,
 				BAA0216F2A04058D006FD11E /* Gateway.swift in Sources */,
 				BABB96F02A45CD0D001462B9 /* SearchUserRequest.swift in Sources */,
@@ -371,6 +378,7 @@
 				BAA021542A04012A006FD11E /* LoadingErrorView.swift in Sources */,
 				BAA0216D2A0404F0006FD11E /* NavigationModel.swift in Sources */,
 				BA1A44052A239EAF00376EB3 /* ConnectionsView.swift in Sources */,
+				BABB96FC2A49B845001462B9 /* GetUserInvitationsRequest.swift in Sources */,
 				BAA0217A2A04063D006FD11E /* RepositoryRequest.swift in Sources */,
 				BAA021732A0405D0006FD11E /* User.swift in Sources */,
 				BAA021562A040152006FD11E /* AccountSettingsView.swift in Sources */,

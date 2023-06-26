@@ -51,6 +51,8 @@ final class BillsModel: ObservableObject {
 
     // MARK: - Invitations Variables
 
+    @Published private(set) var invitations: [Invitation] = []
+
     var activeInvitationsCount: Int {
         2
     }
@@ -195,5 +197,12 @@ final class BillsModel: ObservableObject {
         guard let user else { fatalError("No current user.") }
 
         return try await gateway.invitedUser(senderId: user.id, receiverId: id)
+    }
+
+    @MainActor
+    func getUserInvitations() async throws {
+        guard let user else { fatalError("No current user.") }
+
+        invitations = try await gateway.getUserInvitations(userId: user.id)
     }
 }

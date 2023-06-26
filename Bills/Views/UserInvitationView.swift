@@ -9,6 +9,53 @@ import SwiftUI
 
 struct UserInvitationView: View {
 
+    var invitation: Invitation
+
+    var body: some View {
+        switch invitation.status {
+        case .received:
+            ReceivedInvitationCardView(user: invitation.user)
+        case .sent:
+            SentInvitationCardView(user: invitation.user)
+        }
+    }
+}
+
+private struct SentInvitationCardView: View {
+    var user: User
+
+    var body: some View {
+        HStack(alignment: .top) {
+            Image(systemName: "person")
+                .resizable()
+                .padding()
+                .frame(width: 60, height: 60)
+                .background(.gray.opacity(0.1))
+                .clipShape(Circle())
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text(user.name)
+                    .font(.headline)
+
+                Text("You invited this person to join your domain.")
+                    .font(.subheadline)
+            }
+
+            Spacer()
+
+            Button(role: .destructive) {
+
+            } label: {
+                Label("Remove", systemImage: "trash")
+                    .labelStyle(.iconOnly)
+                    .foregroundColor(.white)
+            }
+            .buttonStyle(.borderedProminent)
+        }
+    }
+}
+
+private struct ReceivedInvitationCardView: View {
     var user: User
 
     var body: some View {
@@ -51,7 +98,19 @@ struct UserInvitationView: View {
 
 struct UserInvitationView_Previews: PreviewProvider {
     static var previews: some View {
-        UserInvitationView(user: User(id: "1", name: "John Appleseed"))
-            .padding()
+        Group {
+            UserInvitationView(invitation: Invitation(
+                id: "1",
+                user: User(id: "1", name: "John Appleseed"),
+                status: .received)
+            )
+
+            UserInvitationView(invitation: Invitation(
+                id: "1",
+                user: User(id: "1", name: "John Appleseed"),
+                status: .sent)
+            )
+        }
+        .padding()
     }
 }

@@ -10,20 +10,59 @@ import SwiftUI
 struct UserInvitationsListView: View {
     @EnvironmentObject private var billsModel: BillsModel
 
-    let mockedNames = [
-        "Alex Zaharia",
-        "Cristiana Chiuzan"
-    ]
+    @State private var isLoadingInvitations: Bool = false
+
+    private var sentInvitations: [Invitation] {
+        billsModel.invitations.filter(\.isSent)
+    }
+
+    private var receivedInvitations: [Invitation] {
+        billsModel.invitations.filter(\.isReceived)
+    }
 
     var body: some View {
-        if billsModel.activeInvitationsCount == 0 {
-            Text("There are no invitations yet.")
-                .foregroundColor(.secondary)
-        } else {
-            List {
-                ForEach(0...billsModel.activeInvitationsCount-1, id: \.self) { userId in
-                    UserInvitationView(user: User(id: userId.formatted(), name: mockedNames[userId]))
+        VStack {
+            if isLoadingInvitations {
+                ProgressView()
+            } else {
+                if billsModel.invitations.isEmpty {
+                    Text("There are no invitations yet.")
+                        .foregroundColor(.secondary)
+                } else {
+                    List {
+                        if !receivedInvitations.isEmpty {
+                            Section("Received") {
+                                ForEach(receivedInvitations) { invitation in
+                                    UserInvitationView(invitation: invitation)
+                                }
+                            }
+                        }
+
+                        if !sentInvitations.isEmpty {
+                            Section("Sent") {
+                                ForEach(sentInvitations) { invitation in
+                                    UserInvitationView(invitation: invitation)
+                                }
+                            }
+                        }
+                    }
                 }
+            }
+        }
+        .task {
+            getUserInvitations()
+        }
+    }
+
+    private func getUserInvitations() {
+        Task {
+            do {
+                isLoadingInvitations = true
+                try await billsModel.getUserInvitations()
+                isLoadingInvitations = false
+            } catch {
+                isLoadingInvitations = false
+                print(error)
             }
         }
     }
