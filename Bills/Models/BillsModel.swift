@@ -168,6 +168,8 @@ final class BillsModel: ObservableObject {
     }
 
     func searchUser(for id: User.ID) async throws {
+        searchedUser = nil
+        
         guard !id.isEmpty,
               id.contains(where: { $0.isLetter || $0.isWholeNumber })
         else {
