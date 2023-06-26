@@ -21,12 +21,12 @@ struct InviteUserRequest: RepositoryRequest {
             let senderInvitationDocumentRef = databaseRef.collection("users")
                 .document(senderUserId)
                 .collection("invitations")
-                .document()
+                .document(receiverUserId)
 
             let receiverInvitationDocumentRef = databaseRef.collection("users")
                 .document(receiverUserId)
                 .collection("invitations")
-                .document()
+                .document(senderUserId)
 
             let senderUserMetadataRequest = GetUserMetadataRequest(id: senderUserId)
             let senderUserMetadataResponse = try await senderUserMetadataRequest.response()
