@@ -167,10 +167,13 @@ final class BillsModel: ObservableObject {
         _ = try await gateway.deleteUser(id: userID)
     }
 
+    @MainActor
     func searchUser(for id: User.ID) async throws {
         searchedUser = nil
         
-        guard !id.isEmpty,
+        guard let user,
+              user.id != id,
+              !id.isEmpty,
               id.allSatisfy({ $0.isLetter || $0.isWholeNumber })
         else {
             return
