@@ -69,4 +69,14 @@ struct RemoteGateway: Gateway {
 
         return User(response.user)
     }
+
+    // MARK: - Invite user methods
+
+    func inviteUser(senderId: User.ID, receiverId: User.ID) async throws {
+        var request = InviteUserRequest()
+        request.senderUserId = senderId
+        request.receiverUserId = receiverId
+
+        _ = try await request.response()
+    }
 }

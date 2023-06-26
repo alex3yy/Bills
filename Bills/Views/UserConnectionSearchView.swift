@@ -14,6 +14,9 @@ struct UserConnectionSearchView: View {
     @State private var searchTask: Task<Void, Never>?
     @State private var isSearching: Bool = false
 
+    @State private var isSendingInvite: Bool = false
+    @State private var isInvited: Bool = false
+
     @State private var matchingUser: User?
 
     var body: some View {
@@ -35,11 +38,18 @@ struct UserConnectionSearchView: View {
                                 Spacer()
 
                                 Button {
-
+                                    inviteUser(with: matchingUser.id)
                                 } label: {
-                                    Text("Invite")
+                                    Text(!isInvited ? "Invite" : "Invited")
+                                        .opacity(isSendingInvite ? 0 : 1)
+                                        .overlay {
+                                            if isSendingInvite {
+                                                ProgressView()
+                                            }
+                                        }
                                 }
                                 .buttonStyle(.borderedProminent)
+                                .disabled(isSendingInvite || isInvited)
                             }
                         }
                     } else {
@@ -78,6 +88,20 @@ struct UserConnectionSearchView: View {
                 isSearching = false
             } catch {
                 isSearching = false
+                print(error)
+            }
+        }
+    }
+
+    private func inviteUser(with id: User.ID) {
+        Task {
+            do {
+                isSendingInvite = true
+                try await billsModel.inviteUser(with: id)
+                isSendingInvite = false
+                isInvited = true
+            } catch {
+                isSendingInvite = false
                 print(error)
             }
         }

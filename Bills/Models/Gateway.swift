@@ -16,4 +16,7 @@ protocol Gateway {
 
     // MARK: - Search user methods
     func searchUser(id: User.ID) async throws -> User?
+
+    // MARK: - Invite user methods
+    func inviteUser(senderId: User.ID, receiverId: User.ID) async throws
 }

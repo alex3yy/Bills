@@ -53,6 +53,9 @@
 		BABB96EE2A4495A4001462B9 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96ED2A4495A4001462B9 /* Bill.swift */; };
 		BABB96F02A45CD0D001462B9 /* SearchUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96EF2A45CD0D001462B9 /* SearchUserRequest.swift */; };
 		BABB96F22A45CE00001462B9 /* UserMetadataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96F12A45CE00001462B9 /* UserMetadataDTO.swift */; };
+		BABB96F42A4982E9001462B9 /* InviteUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96F32A4982E9001462B9 /* InviteUserRequest.swift */; };
+		BABB96F62A4985AB001462B9 /* InvitationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96F52A4985AB001462B9 /* InvitationDTO.swift */; };
+		BABB96F82A498DC8001462B9 /* GetUserMetadataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB96F72A498DC8001462B9 /* GetUserMetadataRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +99,9 @@
 		BABB96ED2A4495A4001462B9 /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		BABB96EF2A45CD0D001462B9 /* SearchUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserRequest.swift; sourceTree = "<group>"; };
 		BABB96F12A45CE00001462B9 /* UserMetadataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetadataDTO.swift; sourceTree = "<group>"; };
+		BABB96F32A4982E9001462B9 /* InviteUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteUserRequest.swift; sourceTree = "<group>"; };
+		BABB96F52A4985AB001462B9 /* InvitationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationDTO.swift; sourceTree = "<group>"; };
+		BABB96F72A498DC8001462B9 /* GetUserMetadataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserMetadataRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +233,7 @@
 			children = (
 				BAA021822A040AD2006FD11E /* UserDTO.swift */,
 				BABB96F12A45CE00001462B9 /* UserMetadataDTO.swift */,
+				BABB96F52A4985AB001462B9 /* InvitationDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -238,7 +245,9 @@
 				BAA0218C2A040B9A006FD11E /* DeleteUserRequest.swift */,
 				BAA021882A040B9A006FD11E /* GetUserRequest.swift */,
 				BAA021912A040B9A006FD11E /* UpdateUserRequest.swift */,
+				BABB96F72A498DC8001462B9 /* GetUserMetadataRequest.swift */,
 				BABB96EF2A45CD0D001462B9 /* SearchUserRequest.swift */,
+				BABB96F32A4982E9001462B9 /* InviteUserRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -340,6 +349,7 @@
 				BABB96EE2A4495A4001462B9 /* Bill.swift in Sources */,
 				BAA021832A040AD2006FD11E /* UserDTO.swift in Sources */,
 				BAA021522A040034006FD11E /* OnboardingView.swift in Sources */,
+				BABB96F42A4982E9001462B9 /* InviteUserRequest.swift in Sources */,
 				BAA021972A040B9A006FD11E /* DeleteUserRequest.swift in Sources */,
 				BAA021982A040B9A006FD11E /* AddUserRequest.swift in Sources */,
 				BAA0219C2A040B9A006FD11E /* UpdateUserRequest.swift in Sources */,
@@ -362,6 +372,8 @@
 				BAA021562A040152006FD11E /* AccountSettingsView.swift in Sources */,
 				BABB96EC2A4492B9001462B9 /* BillShareView.swift in Sources */,
 				BAA0214E2A03FF94006FD11E /* BillsModel.swift in Sources */,
+				BABB96F62A4985AB001462B9 /* InvitationDTO.swift in Sources */,
+				BABB96F82A498DC8001462B9 /* GetUserMetadataRequest.swift in Sources */,
 				BAA021382A03EBBA006FD11E /* BillsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -179,4 +179,11 @@ final class BillsModel: ObservableObject {
         let foundUser = try await gateway.searchUser(id: id)
         self.searchedUser = foundUser
     }
+
+    @MainActor
+    func inviteUser(with id: User.ID) async throws {
+        guard let user else { return }
+
+        try await gateway.inviteUser(senderId: user.id, receiverId: id)
+    }
 }

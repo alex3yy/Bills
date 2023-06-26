@@ -14,7 +14,4 @@ struct UserMetadataDTO: Codable {
     var uid: String = ""
     var name: String = ""
     @ExplicitNull var photoUrl: String? = nil
-
-    var _createdAt: Timestamp = Timestamp()
-    @ExplicitNull var _updatedAt: Timestamp? = nil
 }
