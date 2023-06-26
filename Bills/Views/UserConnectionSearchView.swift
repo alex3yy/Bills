@@ -15,7 +15,7 @@ struct UserConnectionSearchView: View {
     @State private var isSearching: Bool = false
 
     @State private var isSendingInvite: Bool = false
-    @State private var isInvited: Bool = false
+    @State private var isInvited: Bool?
 
     @State private var matchingUser: User?
 
@@ -37,19 +37,23 @@ struct UserConnectionSearchView: View {
 
                                 Spacer()
 
-                                Button {
-                                    inviteUser(with: matchingUser.id)
-                                } label: {
-                                    Text(!isInvited ? "Invite" : "Invited")
-                                        .opacity(isSendingInvite ? 0 : 1)
-                                        .overlay {
-                                            if isSendingInvite {
-                                                ProgressView()
+                                if let isInvited {
+                                    Button {
+                                        inviteUser(with: matchingUser.id)
+                                    } label: {
+                                        Text(!isInvited ? "Invite" : "Invited")
+                                            .opacity(isSendingInvite ? 0 : 1)
+                                            .overlay {
+                                                if isSendingInvite {
+                                                    ProgressView()
+                                                }
                                             }
-                                        }
+                                    }
+                                    .buttonStyle(.borderedProminent)
+                                    .disabled(isSendingInvite || isInvited)
+                                } else {
+                                    ProgressView()
                                 }
-                                .buttonStyle(.borderedProminent)
-                                .disabled(isSendingInvite || isInvited)
                             }
                         }
                     } else {
@@ -85,6 +89,7 @@ struct UserConnectionSearchView: View {
                 isSearching = true
                 try await Task.sleep(for: .seconds(2))
                 try await billsModel.searchUser(for: searchText)
+                checkInvitedUser(for: searchText)
                 isSearching = false
             } catch {
                 isSearching = false
@@ -102,6 +107,16 @@ struct UserConnectionSearchView: View {
                 isInvited = true
             } catch {
                 isSendingInvite = false
+                print(error)
+            }
+        }
+    }
+
+    private func checkInvitedUser(for id: User.ID) {
+        Task {
+            do {
+                isInvited = try await billsModel.invitedUser(for: id)
+            } catch {
                 print(error)
             }
         }

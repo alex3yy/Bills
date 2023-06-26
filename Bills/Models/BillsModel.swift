@@ -189,4 +189,11 @@ final class BillsModel: ObservableObject {
 
         try await gateway.inviteUser(senderId: user.id, receiverId: id)
     }
+
+    @MainActor
+    func invitedUser(for id: User.ID) async throws -> Bool {
+        guard let user else { fatalError("No current user.") }
+
+        return try await gateway.invitedUser(senderId: user.id, receiverId: id)
+    }
 }

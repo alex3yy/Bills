@@ -19,4 +19,5 @@ protocol Gateway {
 
     // MARK: - Invite user methods
     func inviteUser(senderId: User.ID, receiverId: User.ID) async throws
+    func invitedUser(senderId: User.ID, receiverId: User.ID) async throws -> Bool
 }
