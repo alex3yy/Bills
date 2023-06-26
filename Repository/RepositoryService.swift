@@ -15,6 +15,10 @@ struct RepositoryService {
 
     /// Performs a request based on a reference of Firestore database.
     static func performRequest<T: RepositoryResponse>(_ request: ((Firestore) async throws -> T)) async throws -> T {
-        return try await request(databaseRef)
+        do {
+            return try await request(databaseRef)
+        } catch {
+            throw RepositoryServiceError(error)
+        }
     }
 }

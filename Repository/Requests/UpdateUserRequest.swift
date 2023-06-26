@@ -22,45 +22,42 @@ struct UpdateUserRequest: RepositoryRequest {
 
     func response() async throws -> UpdateUserResponse {
         try await RepositoryService.performRequest { databaseRef in
-            do {
-                let userDocumentRef = databaseRef.collection("users").document(id)
 
-//                var photoURL: String?
-//                if let photoData = photoData {
-//
-//                    // Upload the image to Firebase Storage.
-//                    var request = UploadImageRequest()
-//                    request.storagePath = "profile/\(id)_\(UUID().uuidString)_profile.jpg"
-//                    request.imageData = photoData
-//
-//                    let response = try await request.response()
-//                    photoURL = response.imageUrl
-//                }
+            let userDocumentRef = databaseRef.collection("users").document(id)
 
-                let userData: [AnyHashable : Any?] = [
-                    "name": name,
-                    "email": email,
-                    //"photoUrl": photoURL,
-                    "_updatedAt": Timestamp(date: .now)
-                ]
-                let modifiedUserData = userData.filter({ $0.value != nil }) as [AnyHashable : Any]
+            //                var photoURL: String?
+            //                if let photoData = photoData {
+            //
+            //                    // Upload the image to Firebase Storage.
+            //                    var request = UploadImageRequest()
+            //                    request.storagePath = "profile/\(id)_\(UUID().uuidString)_profile.jpg"
+            //                    request.imageData = photoData
+            //
+            //                    let response = try await request.response()
+            //                    photoURL = response.imageUrl
+            //                }
 
-                // Get new write batch
-                let batch = databaseRef.batch()
-                batch.updateData(modifiedUserData, forDocument: userDocumentRef)
+            let userData: [AnyHashable : Any?] = [
+                "name": name,
+                "email": email,
+                //"photoUrl": photoURL,
+                "_updatedAt": Timestamp(date: .now)
+            ]
+            let modifiedUserData = userData.filter({ $0.value != nil }) as [AnyHashable : Any]
 
-                // Commit the batch
-                try await batch.commit()
+            // Get new write batch
+            let batch = databaseRef.batch()
+            batch.updateData(modifiedUserData, forDocument: userDocumentRef)
 
-                // Get updated user.
-                let request = GetUserRequest(id: id)
-                let response = try await request.response()
-                let updatedUser = response.user
+            // Commit the batch
+            try await batch.commit()
 
-                return UpdateUserResponse(user: updatedUser)
-            } catch {
-                throw RepositoryServiceError(error)
-            }
+            // Get updated user.
+            let request = GetUserRequest(id: id)
+            let response = try await request.response()
+            let updatedUser = response.user
+
+            return UpdateUserResponse(user: updatedUser)
         }
     }
 }

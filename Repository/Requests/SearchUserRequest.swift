@@ -17,14 +17,10 @@ struct SearchUserRequest: RepositoryRequest {
 
     func response() async throws -> SearchUserResponse {
         try await RepositoryService.performRequest { databaseRef in
-            do {
-                let documentRef = databaseRef.collection("users").document(id)
-                let userRef = try await documentRef.getDocument()
-                let user = try userRef.data(as: UserMetadataDTO.self)
-                return SearchUserResponse(user: user)
-            } catch {
-                throw RepositoryServiceError(error)
-            }
+            let documentRef = databaseRef.collection("users").document(id)
+            let userRef = try await documentRef.getDocument()
+            let user = try userRef.data(as: UserMetadataDTO.self)
+            return SearchUserResponse(user: user)
         }
     }
 }
