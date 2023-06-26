@@ -171,7 +171,7 @@ final class BillsModel: ObservableObject {
         searchedUser = nil
         
         guard !id.isEmpty,
-              id.contains(where: { $0.isLetter || $0.isWholeNumber })
+              id.allSatisfy({ $0.isLetter || $0.isWholeNumber })
         else {
             return
         }
