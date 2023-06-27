@@ -65,7 +65,9 @@ struct UserInvitationsListView: View {
         Task {
             do {
                 isLoadingInvitations = true
-                try await billsModel.getUserInvitations()
+                try await billsModel.getUserInvitations { areLoaded in
+                    isLoadingInvitations = !areLoaded
+                }
                 isLoadingInvitations = false
             } catch {
                 isLoadingInvitations = false

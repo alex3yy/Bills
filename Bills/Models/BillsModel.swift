@@ -200,10 +200,17 @@ final class BillsModel: ObservableObject {
     }
 
     @MainActor
-    func getUserInvitations() async throws {
+    func getUserInvitations(completion: (Bool) -> Void = {_ in }) async throws {
         guard let user else { fatalError("No current user.") }
 
-        invitations = try await gateway.getUserInvitations(userId: user.id)
+        invitations = []
+
+        completion(false)
+        let stream = try await gateway.getUserInvitations(userId: user.id)
+        for await invitation in stream {
+            invitations = invitation
+            completion(true)
+        }
     }
 
     @MainActor

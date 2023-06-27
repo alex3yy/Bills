@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct GetUserInvitationsResponse: RepositoryResponse {
-    var invitations: [InvitationDTO]
+    var invitationsStream: AsyncStream<[InvitationDTO]>
 }
 
 struct GetUserInvitationsRequest: RepositoryRequest {
@@ -22,13 +22,28 @@ struct GetUserInvitationsRequest: RepositoryRequest {
                 .document(userId)
                 .collection("invitations")
 
-            let invitationsDocuments = try await invitationsDocumentRef.getDocuments()
+            let asyncStream = AsyncStream<[InvitationDTO]> { continuation in
+                invitationsDocumentRef.addSnapshotListener { snapshot, error in
+                    guard let documents = snapshot?.documents,
+                          !documents.isEmpty
+                    else {
+                        continuation.yield([])
+                        return
+                    }
 
-            let invitations = try invitationsDocuments.documents.map { snapshot in
-                try snapshot.data(as: InvitationDTO.self)
+                    do {
+                        let invitations = try documents.map { snapshot in
+                            let invitation = try snapshot.data(as: InvitationDTO.self)
+                            return invitation
+                        }
+                        continuation.yield(invitations)
+                    } catch {
+                        print(error)
+                        continuation.yield([])
+                    }
+                }
             }
-
-            return GetUserInvitationsResponse(invitations: invitations)
+            return GetUserInvitationsResponse(invitationsStream: asyncStream)
         }
     }
 }

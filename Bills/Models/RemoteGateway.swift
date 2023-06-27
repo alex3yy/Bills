@@ -90,13 +90,20 @@ struct RemoteGateway: Gateway {
         return response.isInvited
     }
 
-    func getUserInvitations(userId: User.ID) async throws -> [Invitation] {
+    func getUserInvitations(userId: User.ID) async throws -> AsyncStream<[Invitation]> {
         var request = GetUserInvitationsRequest()
         request.userId = userId
 
         let response = try await request.response()
 
-        return response.invitations.map(Invitation.init)
+        let invitationsStream = AsyncStream {
+            for await invitationDtos in response.invitationsStream {
+                return invitationDtos.map(Invitation.init)
+            }
+            return []
+        }
+
+        return invitationsStream
     }
 
     func deleteUserInvitation(senderId: User.ID, receiverId: User.ID) async throws {
