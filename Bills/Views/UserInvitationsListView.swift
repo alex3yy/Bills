@@ -34,7 +34,7 @@ struct UserInvitationsListView: View {
                             Section("Received") {
                                 ForEach(receivedInvitations) { invitation in
                                     UserInvitationView(invitation: invitation) {
-                                        //
+                                        try await acceptInvitation(for: invitation.user.id)
                                     } deleteAction: {
                                         try await deleteInvitation(for: invitation.user.id)
                                     }
@@ -78,6 +78,11 @@ struct UserInvitationsListView: View {
 
     private func deleteInvitation(for id: User.ID) async throws {
         try await billsModel.deleteUserInvitation(for: id)
+        getUserInvitations()
+    }
+
+    private func acceptInvitation(for id: User.ID) async throws {
+        try await billsModel.acceptUserInvitation(for: id)
         getUserInvitations()
     }
 }

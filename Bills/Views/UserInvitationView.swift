@@ -10,7 +10,7 @@ import SwiftUI
 struct UserInvitationView: View {
 
     var invitation: Invitation
-    var acceptAction: () -> Void = {}
+    var acceptAction: () async throws -> Void = {}
     var deleteAction: () async throws -> Void = {}
 
     var body: some View {
@@ -78,10 +78,11 @@ private struct SentInvitationCardView: View {
 
 private struct ReceivedInvitationCardView: View {
     var user: User
-    var acceptAction: () -> Void
+    var acceptAction: () async throws -> Void
     var deleteAction: () async throws -> Void
 
     @State private var isDeletingInvitation: Bool = false
+    @State private var isAcceptingInvitation: Bool = false
 
     var body: some View {
         HStack(alignment: .top) {
@@ -103,10 +104,25 @@ private struct ReceivedInvitationCardView: View {
             Spacer()
 
             Button {
-                acceptAction()
+                Task {
+                    do {
+                        isAcceptingInvitation = true
+                        try await acceptAction()
+                        isAcceptingInvitation = false
+                    } catch {
+                        isAcceptingInvitation = false
+                        print(error)
+                    }
+                }
             } label: {
                 Image(systemName: "checkmark")
                     .frame(width: 20, height: 20)
+                    .opacity(isAcceptingInvitation ? 0 : 1)
+                    .overlay {
+                        if isAcceptingInvitation {
+                            ProgressView()
+                        }
+                    }
             }
             .buttonStyle(.borderedProminent)
 
@@ -132,8 +148,8 @@ private struct ReceivedInvitationCardView: View {
                     }
             }
             .buttonStyle(.borderedProminent)
-            .disabled(isDeletingInvitation)
         }
+        .disabled(isAcceptingInvitation || isDeletingInvitation)
     }
 }
 

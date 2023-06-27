@@ -22,4 +22,7 @@ protocol Gateway {
     func invitedUser(senderId: User.ID, receiverId: User.ID) async throws -> Bool
     func getUserInvitations(userId: User.ID) async throws -> AsyncStream<[Invitation]>
     func deleteUserInvitation(senderId: User.ID, receiverId: User.ID) async throws
+
+    // MARK: - Connection user methods
+    func addUserConnection(senderId: User.ID, receiverId: User.ID) async throws
 }

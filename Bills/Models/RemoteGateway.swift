@@ -113,4 +113,13 @@ struct RemoteGateway: Gateway {
 
         _ = try await request.response()
     }
+
+    // MARK: - Connection user methods
+    func addUserConnection(senderId: User.ID, receiverId: User.ID) async throws {
+        var request = AddUserConnectionRequest()
+        request.senderUserId = senderId
+        request.receiverUserId = receiverId
+
+        _ = try await request.response()
+    }
 }
