@@ -135,4 +135,13 @@ struct RemoteGateway: Gateway {
 
         return response.isConnected
     }
+
+    func getUserConnections(userId: User.ID) async throws -> [Connection] {
+        var request = GetUserConnectionsRequest()
+        request.userId = userId
+
+        let response = try await request.response()
+
+        return response.connections.map(Connection.init)
+    }
 }

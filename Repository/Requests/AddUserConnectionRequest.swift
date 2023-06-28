@@ -29,13 +29,22 @@ struct AddUserConnectionRequest: RepositoryRequest {
                 .collection("connections")
                 .document(senderUserId)
 
+            let senderUserMetadataRequest = GetUserMetadataRequest(id: senderUserId)
+            let senderUserMetadataResponse = try await senderUserMetadataRequest.response()
+
+            let receiverUserMetadataRequest = GetUserMetadataRequest(id: receiverUserId)
+            let receiverUserMetadataResponse = try await receiverUserMetadataRequest.response()
+
+            let senderUserMetadataInfo = senderUserMetadataResponse.userMetadata
+            let receiverUserMetadataInfo = receiverUserMetadataResponse.userMetadata
+
             let senderConnection = ConnectionDTO(
-                userUid: senderUserId,
+                user: senderUserMetadataInfo,
                 role: .LANDLORD
             )
 
             let receiverConnection = ConnectionDTO(
-                userUid: receiverUserId,
+                user: receiverUserMetadataInfo,
                 role: .TENANT
             )
 

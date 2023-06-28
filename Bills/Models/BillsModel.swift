@@ -58,7 +58,14 @@ final class BillsModel: ObservableObject {
     var activeInvitationsCount: Int {
         invitations.filter(\.isReceived).count
     }
-    
+
+    // MARK: - Connections variables
+
+    /// A collection of a user's connections.
+    @Published private(set) var connections: [Connection] = []
+
+    // MARK: - Auth methods
+
     /// Signs out the current user.
     @MainActor
     func signOut() {
@@ -225,7 +232,7 @@ final class BillsModel: ObservableObject {
         try await gateway.deleteUserInvitation(senderId: user.id, receiverId: id)
     }
 
-    // MARK: - Connections user methods
+    // MARK: - Connections user requests
     @MainActor
     func acceptUserInvitation(for id: User.ID) async throws {
         guard let user else { fatalError("No current user.") }
@@ -239,5 +246,12 @@ final class BillsModel: ObservableObject {
         guard let user else { fatalError("No current user.") }
 
         return try await gateway.connectedUser(senderId: user.id, receiverId: id)
+    }
+
+    @MainActor
+    func getUserConnections() async throws {
+        guard let user else { fatalError("No current user.") }
+
+        connections = try await gateway.getUserConnections(userId: user.id)
     }
 }

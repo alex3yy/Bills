@@ -92,7 +92,6 @@ struct UserConnectionSearchView: View {
                 }
             }
         }
-        .navigationTitle("Add Connection")
         .searchable(text: $searchText)
         .onChange(of: searchText) { newValue in
             performSearch()

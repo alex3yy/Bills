@@ -12,40 +12,52 @@ struct ConnectionsView: View {
     @EnvironmentObject private var billsModel: BillsModel
     @EnvironmentObject private var navigationModel: NavigationModel
 
-    @State private var range1: [Int] = [0, 1, 2, 3, 4]
-    @State private var range2: [Int] = [5, 6, 7, 8, 9]
+    @State private var isLoadingConnections: Bool = false
 
-    let mockedNames = [
-        "John Appleseed",
-        "Jane Doe",
-        "Mason Hugh",
-        "Martin Fowler",
-        "Dwayne Johnson",
-        "Mark Lee",
-        "Emily Duncan",
-        "Natalie Gurman",
-        "Tim Cook",
-        "George Beto"
-    ]
+    private var tenants: [Connection] {
+        billsModel.connections.filter(\.isTenant)
+    }
+
+    private var landlords: [Connection] {
+        billsModel.connections.filter(\.isLandlord)
+    }
 
     var body: some View {
         NavigationStack {
-            List {
-                Section("Tenants") {
-                    ForEach(range1, id: \.self) { index in
-                        PersonCardView(user: User(id: "\(index)", name: mockedNames[index]))
-                    }
-                    .onDelete { range1.remove(atOffsets: $0) }
-                }
+            VStack {
+                if isLoadingConnections {
+                    ProgressView()
+                } else {
+                    if billsModel.connections.isEmpty {
+                        Text("You have no connections yet.")
+                            .foregroundColor(.secondary)
+                    } else {
+                        List {
+                            if !tenants.isEmpty {
+                                Section("Tenants") {
+                                    ForEach(tenants) { tenant in
+                                        PersonCardView(user: tenant.user)
+                                    }
+                                    //.onDelete {  }
+                                }
+                            }
 
-                Section("Landlords") {
-                    ForEach(range2, id: \.self) { index in
-                        PersonCardView(user: User(id: "\(index)", name: mockedNames[index]))
+                            if !landlords.isEmpty {
+                                Section("Landlords") {
+                                    ForEach(landlords) { landlord in
+                                        PersonCardView(user: landlord.user)
+                                    }
+                                    //.onDelete {  }
+                                }
+                            }
+                        }
                     }
-                    .onDelete { range2.remove(atOffsets: $0) }
                 }
             }
             .navigationTitle("Connections")
+            .task {
+                await getUserConnections()
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -73,6 +85,7 @@ struct ConnectionsView: View {
             .sheet(isPresented: $navigationModel.isPresentingAddConnectionsView) {
                 NavigationStack {
                     UserConnectionSearchView()
+                        .navigationTitle("Add Connection")
                         .toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button("Done", role: .cancel) {
@@ -95,6 +108,17 @@ struct ConnectionsView: View {
                         }
                 }
             }
+        }
+    }
+
+    private func getUserConnections() async {
+        do {
+            isLoadingConnections = true
+            try await billsModel.getUserConnections()
+            isLoadingConnections = false
+        } catch {
+            isLoadingConnections = false
+            print(error)
         }
     }
 }

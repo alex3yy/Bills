@@ -26,4 +26,5 @@ protocol Gateway {
     // MARK: - Connection user methods
     func addUserConnection(senderId: User.ID, receiverId: User.ID) async throws
     func connectedUser(senderId: User.ID, receiverId: User.ID) async throws -> Bool
+    func getUserConnections(userId: User.ID) async throws -> [Connection]
 }
