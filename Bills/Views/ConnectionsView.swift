@@ -24,38 +24,40 @@ struct ConnectionsView: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
-                if isLoadingConnections {
-                    ProgressView()
-                } else {
-                    if billsModel.connections.isEmpty {
-                        Text("You have no connections yet.")
-                            .foregroundColor(.secondary)
-                    } else {
-                        List {
-                            if !tenants.isEmpty {
-                                Section("Tenants") {
-                                    ForEach(tenants) { tenant in
-                                        PersonCardView(user: tenant.user)
-                                    }
-                                    //.onDelete {  }
-                                }
-                            }
-
-                            if !landlords.isEmpty {
-                                Section("Landlords") {
-                                    ForEach(landlords) { landlord in
-                                        PersonCardView(user: landlord.user)
-                                    }
-                                    //.onDelete {  }
-                                }
-                            }
+            List {
+                if !tenants.isEmpty {
+                    Section("Tenants") {
+                        ForEach(tenants) { tenant in
+                            PersonCardView(user: tenant.user)
                         }
+                        .onDelete(perform: deleteConnections)
+                    }
+                }
+
+                if !landlords.isEmpty {
+                    Section("Landlords") {
+                        ForEach(landlords) { landlord in
+                            PersonCardView(user: landlord.user)
+                        }
+                        .onDelete(perform: deleteConnections)
                     }
                 }
             }
             .navigationTitle("Connections")
+            .overlay {
+                if isLoadingConnections {
+                    ProgressView()
+                } else if billsModel.connections.isEmpty {
+                    Text("You have no connections yet.")
+                        .foregroundColor(.secondary)
+                }
+            }
             .task {
+                isLoadingConnections = true
+                await getUserConnections()
+                isLoadingConnections = false
+            }
+            .refreshable {
                 await getUserConnections()
             }
             .toolbar {
@@ -113,12 +115,19 @@ struct ConnectionsView: View {
 
     private func getUserConnections() async {
         do {
-            isLoadingConnections = true
             try await billsModel.getUserConnections()
-            isLoadingConnections = false
         } catch {
-            isLoadingConnections = false
             print(error)
+        }
+    }
+
+    private func deleteConnections(atOffsets indexSet: IndexSet) {
+        Task {
+            do {
+                try await billsModel.deleteUserConnections(atOffsets: indexSet)
+            } catch {
+                print(error)
+            }
         }
     }
 }

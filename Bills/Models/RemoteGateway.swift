@@ -144,4 +144,12 @@ struct RemoteGateway: Gateway {
 
         return response.connections.map(Connection.init)
     }
+
+    func deleteUserConnection(senderId: User.ID, receiverId: User.ID) async throws {
+        var request = DeleteUserConnectionRequest()
+        request.senderUserId = senderId
+        request.receiverUserId = receiverId
+
+        _ = try await request.response()
+    }
 }

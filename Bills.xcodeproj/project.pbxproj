@@ -65,6 +65,7 @@
 		BABB970C2A4C108D001462B9 /* CheckConnectedUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB970B2A4C108D001462B9 /* CheckConnectedUserRequest.swift */; };
 		BABB97102A4C33A7001462B9 /* GetUserConnectionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB970F2A4C33A7001462B9 /* GetUserConnectionsRequest.swift */; };
 		BABB97122A4C359C001462B9 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB97112A4C359C001462B9 /* Connection.swift */; };
+		BABB97142A4C551D001462B9 /* DeleteUserConnectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB97132A4C551D001462B9 /* DeleteUserConnectionRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +121,7 @@
 		BABB970B2A4C108D001462B9 /* CheckConnectedUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckConnectedUserRequest.swift; sourceTree = "<group>"; };
 		BABB970F2A4C33A7001462B9 /* GetUserConnectionsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserConnectionsRequest.swift; sourceTree = "<group>"; };
 		BABB97112A4C359C001462B9 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
+		BABB97132A4C551D001462B9 /* DeleteUserConnectionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserConnectionRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 				BABB97092A4B4132001462B9 /* AddUserConnectionRequest.swift */,
 				BABB970B2A4C108D001462B9 /* CheckConnectedUserRequest.swift */,
 				BABB970F2A4C33A7001462B9 /* GetUserConnectionsRequest.swift */,
+				BABB97132A4C551D001462B9 /* DeleteUserConnectionRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				BABB96F02A45CD0D001462B9 /* SearchUserRequest.swift in Sources */,
 				BABB96FA2A49A774001462B9 /* CheckInvitedUserRequest.swift in Sources */,
 				BABB96E62A447248001462B9 /* PersonCardView.swift in Sources */,
+				BABB97142A4C551D001462B9 /* DeleteUserConnectionRequest.swift in Sources */,
 				BAA021812A0406CF006FD11E /* RoundedProminentButtonStyle.swift in Sources */,
 				BA0A012F2A433B83004D8FE6 /* UserInvitationView.swift in Sources */,
 				BABB96F22A45CE00001462B9 /* UserMetadataDTO.swift in Sources */,

@@ -239,6 +239,7 @@ final class BillsModel: ObservableObject {
 
         try await gateway.addUserConnection(senderId: id, receiverId: user.id)
         try await deleteUserInvitation(for: id)
+        try await getUserConnections()
     }
 
     @MainActor
@@ -253,5 +254,23 @@ final class BillsModel: ObservableObject {
         guard let user else { fatalError("No current user.") }
 
         connections = try await gateway.getUserConnections(userId: user.id)
+    }
+
+    @MainActor
+    func deleteUserConnection(for id: User.ID) async throws {
+        guard let user else { fatalError("No current user.") }
+
+        try await gateway.deleteUserConnection(senderId: user.id, receiverId: id)
+    }
+
+    @MainActor
+    func deleteUserConnections(atOffsets indexSet: IndexSet) async throws {
+        guard let user else { fatalError("No current user.") }
+
+        for index in indexSet {
+            let id = connections[index].id
+            try await deleteUserConnection(for: id)
+            connections.remove(atOffsets: indexSet)
+        }
     }
 }
