@@ -8,34 +8,35 @@
 import SwiftUI
 
 struct BillShareView: View {
-    //@EnvironmentObject private var billsModel: BillsModel
+    @EnvironmentObject private var billsModel: BillsModel
 
     var bill: Bill
 
     @State private var searchText: String = ""
+    @State private var isLoadingConnections: Bool = false
 
-    let mockedNames = [
-        "John Appleseed",
-        "Jane Doe",
-        "Mason Hugh",
-        "Martin Fowler",
-        "Dwayne Johnson",
-        "Mark Lee"
-    ]
+    var filteredConnections: [Connection] {
+        guard !searchText.isEmpty else {
+            return billsModel.connections
+        }
+
+        return billsModel.connections.filter { connection in
+            connection.user.name.contains(searchText)
+        }
+    }
 
     var body: some View {
         Group {
-            if searchText.isEmpty { //billsModel.connections.isEmpty
+            if filteredConnections.isEmpty {
                 Text("You do not have any connections to share your bill with.")
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 24)
             } else {
                 List {
-                    ForEach(0...5, id: \.self) { userId in
+                    ForEach(filteredConnections) { connection in
                         HStack {
-                            let user = User(id: userId.formatted(), name: mockedNames[userId], email: "", photoURL: nil)
-                            PersonCardView(user: user)
+                            PersonCardView(user: connection.user)
 
                             Spacer()
 
@@ -54,11 +55,27 @@ struct BillShareView: View {
             }
         }
         .searchable(text: $searchText)
-        .onChange(of: searchText) { newValue in
-            //billsModel.searchUser(using: newValue)
+        .task {
+            getUserConnections()
         }
-        .onSubmit {
-            //billsModel.searchUser(using: newValue)
+//        .onChange(of: searchText) { newValue in
+//            //billsModel.searchUser(using: newValue)
+//        }
+//        .onSubmit {
+//            //billsModel.searchUser(using: newValue)
+//        }
+    }
+
+    private func getUserConnections() {
+        Task {
+            do {
+                isLoadingConnections = true
+                try await billsModel.getUserConnections()
+                isLoadingConnections = false
+            } catch {
+                isLoadingConnections = false
+                print(error)
+            }
         }
     }
 }
