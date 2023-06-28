@@ -17,6 +17,8 @@ struct UserConnectionSearchView: View {
     @State private var isSendingInvite: Bool = false
     @State private var isInvited: Bool?
 
+    @State private var isConnected: Bool?
+
     @State private var matchingUser: User?
 
     var body: some View {
@@ -37,7 +39,10 @@ struct UserConnectionSearchView: View {
 
                                 Spacer()
 
-                                if let isInvited {
+                                if let isConnected {
+                                    Text("Connected")
+                                        .foregroundColor(.secondary)
+                                } else if let isInvited {
                                     Button {
                                         inviteUser(with: matchingUser.id)
                                     } label: {
@@ -90,6 +95,7 @@ struct UserConnectionSearchView: View {
                 try await Task.sleep(for: .seconds(2))
                 try await billsModel.searchUser(for: searchText)
                 checkInvitedUser(for: searchText)
+                checkConnectedUser(for: searchText)
                 isSearching = false
             } catch {
                 isSearching = false
@@ -116,6 +122,16 @@ struct UserConnectionSearchView: View {
         Task {
             do {
                 isInvited = try await billsModel.invitedUser(for: id)
+            } catch {
+                print(error)
+            }
+        }
+    }
+
+    private func checkConnectedUser(for id: User.ID) {
+        Task {
+            do {
+                isConnected = try await billsModel.connectedUser(for: id)
             } catch {
                 print(error)
             }

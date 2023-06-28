@@ -122,4 +122,14 @@ struct RemoteGateway: Gateway {
 
         _ = try await request.response()
     }
+
+    func connectedUser(senderId: User.ID, receiverId: User.ID) async throws -> Bool {
+        var request = CheckConnectedUserRequest()
+        request.senderUserId = senderId
+        request.receiverUserId = receiverId
+
+        let response = try await request.response()
+
+        return response.isConnected
+    }
 }

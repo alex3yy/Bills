@@ -62,6 +62,7 @@
 		BABB97022A49D04D001462B9 /* DeleteUserInvitationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB97012A49D04D001462B9 /* DeleteUserInvitationRequest.swift */; };
 		BABB97082A4B4116001462B9 /* ConnectionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB97072A4B4116001462B9 /* ConnectionDTO.swift */; };
 		BABB970A2A4B4132001462B9 /* AddUserConnectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB97092A4B4132001462B9 /* AddUserConnectionRequest.swift */; };
+		BABB970C2A4C108D001462B9 /* CheckConnectedUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB970B2A4C108D001462B9 /* CheckConnectedUserRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +115,7 @@
 		BABB97012A49D04D001462B9 /* DeleteUserInvitationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserInvitationRequest.swift; sourceTree = "<group>"; };
 		BABB97072A4B4116001462B9 /* ConnectionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDTO.swift; sourceTree = "<group>"; };
 		BABB97092A4B4132001462B9 /* AddUserConnectionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserConnectionRequest.swift; sourceTree = "<group>"; };
+		BABB970B2A4C108D001462B9 /* CheckConnectedUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckConnectedUserRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +268,7 @@
 				BABB96FB2A49B845001462B9 /* GetUserInvitationsRequest.swift */,
 				BABB97012A49D04D001462B9 /* DeleteUserInvitationRequest.swift */,
 				BABB97092A4B4132001462B9 /* AddUserConnectionRequest.swift */,
+				BABB970B2A4C108D001462B9 /* CheckConnectedUserRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				BABB96E22A444EAC001462B9 /* BillsView.swift in Sources */,
 				BABB96DE2A444680001462B9 /* UserInvitationsListView.swift in Sources */,
 				BAA021542A04012A006FD11E /* LoadingErrorView.swift in Sources */,
+				BABB970C2A4C108D001462B9 /* CheckConnectedUserRequest.swift in Sources */,
 				BAA0216D2A0404F0006FD11E /* NavigationModel.swift in Sources */,
 				BA1A44052A239EAF00376EB3 /* ConnectionsView.swift in Sources */,
 				BABB96FC2A49B845001462B9 /* GetUserInvitationsRequest.swift in Sources */,
