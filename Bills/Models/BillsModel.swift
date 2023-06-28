@@ -200,7 +200,7 @@ final class BillsModel: ObservableObject {
     }
 
     @MainActor
-    func invitedUser(for id: User.ID) async throws -> Bool {
+    func invitedUser(for id: User.ID) async throws -> Invitation.Status? {
         guard let user else { fatalError("No current user.") }
 
         return try await gateway.invitedUser(senderId: user.id, receiverId: id)

@@ -22,7 +22,7 @@ struct CheckConnectedUserRequest: RepositoryRequest {
             let userConnectionsQueryRef = databaseRef.collection("users")
                 .document(receiverUserId)
                 .collection("connections")
-                .whereField("user.uid", isEqualTo: senderUserId)
+                .whereField("userUid", isEqualTo: senderUserId)
 
             let userConnectionsCountQuery = userConnectionsQueryRef.count
             let userConnectionsCountQueryResult = try await userConnectionsCountQuery

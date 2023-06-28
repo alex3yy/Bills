@@ -80,14 +80,17 @@ struct RemoteGateway: Gateway {
         _ = try await request.response()
     }
 
-    func invitedUser(senderId: User.ID, receiverId: User.ID) async throws -> Bool {
+    func invitedUser(senderId: User.ID, receiverId: User.ID) async throws -> Invitation.Status? {
         var request = CheckInvitedUserRequest()
         request.senderUserId = senderId
         request.receiverUserId = receiverId
         
         let response = try await request.response()
 
-        return response.isInvited
+        if let invitationStatus = response.invitationStatus {
+            return Invitation.Status(invitationStatus)
+        }
+        return nil
     }
 
     func getUserInvitations(userId: User.ID) async throws -> AsyncStream<[Invitation]> {

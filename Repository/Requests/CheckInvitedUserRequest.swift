@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct CheckInvitedUserResponse: RepositoryResponse {
-    var isInvited: Bool
+    var invitationStatus: InvitationDTO.Status?
 }
 
 struct CheckInvitedUserRequest: RepositoryRequest {
@@ -19,19 +19,21 @@ struct CheckInvitedUserRequest: RepositoryRequest {
 
     func response() async throws -> CheckInvitedUserResponse {
         try await RepositoryService.performRequest { databaseRef in
-            let userInvitationQueryRef = databaseRef.collection("users")
-                .document(receiverUserId)
+            let userInvitationDocumentRef = databaseRef.collection("users")
+                .document(senderUserId)
                 .collection("invitations")
-                .whereField("user.uid", isEqualTo: senderUserId)
+                .document(receiverUserId)
 
-            let userInvitationsCountQuery = userInvitationQueryRef.count
-            let userInvitationsCountQueryResult = try await userInvitationsCountQuery
-                .getAggregation(source: .server)
+            let userInvitationDocument = try await userInvitationDocumentRef.getDocument()
 
-            let userInvitationsCount = userInvitationsCountQueryResult.count
-            let isUserInvited = userInvitationsCount != 0
+            if !userInvitationDocument.exists {
+                return CheckInvitedUserResponse(invitationStatus: nil)
+            }
 
-            return CheckInvitedUserResponse(isInvited: isUserInvited)
+            let fieldValue = userInvitationDocument.get("status") as! String
+            let invitationStatus = InvitationDTO.Status(rawValue: fieldValue)
+
+            return CheckInvitedUserResponse(invitationStatus: invitationStatus)
         }
     }
 }

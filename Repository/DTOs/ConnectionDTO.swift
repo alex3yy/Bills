@@ -14,6 +14,6 @@ struct ConnectionDTO: Codable {
         case TENANT
     }
 
-    var userId: String
+    var userUid: String
     var role: Role
 }

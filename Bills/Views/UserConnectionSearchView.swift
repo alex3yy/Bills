@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+enum UserConnectionStatus {
+    case sentInvite
+    case connected
+    case receivedInvite
+    case unrelated
+}
+
 struct UserConnectionSearchView: View {
     @EnvironmentObject private var billsModel: BillsModel
 
@@ -15,11 +22,17 @@ struct UserConnectionSearchView: View {
     @State private var isSearching: Bool = false
 
     @State private var isSendingInvite: Bool = false
-    @State private var isInvited: Bool?
 
-    @State private var isConnected: Bool?
+    @State private var userConnectionStatus: UserConnectionStatus?
+    //@State private var isInvited: Bool?
 
-    @State private var matchingUser: User?
+    //@State private var isConnected: Bool?
+
+//    @State private var matchingUser: User?
+
+    var invitationStatus: Invitation.Status? {
+        billsModel.invitations.first(where: { $0.user.id == searchText }).map(\.status)
+    }
 
     var body: some View {
         Group {
@@ -39,23 +52,32 @@ struct UserConnectionSearchView: View {
 
                                 Spacer()
 
-                                if let isConnected, isConnected {
-                                    Text("Connected")
-                                        .foregroundColor(.secondary)
-                                } else if let isInvited {
-                                    Button {
-                                        inviteUser(with: matchingUser.id)
-                                    } label: {
-                                        Text(!isInvited ? "Invite" : "Invited")
-                                            .opacity(isSendingInvite ? 0 : 1)
-                                            .overlay {
-                                                if isSendingInvite {
-                                                    ProgressView()
+                                if let userConnectionStatus {
+                                    switch userConnectionStatus {
+                                    case .sentInvite:
+                                        Text("Invited")
+                                            .foregroundColor(.secondary)
+                                    case .connected:
+                                        Text("Connected")
+                                            .foregroundColor(.secondary)
+                                    case .receivedInvite:
+                                        Text("Invited you")
+                                            .foregroundColor(.secondary)
+                                    case .unrelated:
+                                        Button {
+                                            inviteUser(with: matchingUser.id)
+                                        } label: {
+                                            Text("Invite")
+                                                .opacity(isSendingInvite ? 0 : 1)
+                                                .overlay {
+                                                    if isSendingInvite {
+                                                        ProgressView()
+                                                    }
                                                 }
-                                            }
+                                        }
+                                        .buttonStyle(.borderedProminent)
+                                        .disabled(isSendingInvite)
                                     }
-                                    .buttonStyle(.borderedProminent)
-                                    .disabled(isSendingInvite || isInvited)
                                 } else {
                                     ProgressView()
                                 }
@@ -82,6 +104,9 @@ struct UserConnectionSearchView: View {
 
     private func performSearch() {
 
+        // Remove previous state.
+        userConnectionStatus = nil
+
         // Cancel previous task.
         searchTask?.cancel()
 
@@ -94,13 +119,30 @@ struct UserConnectionSearchView: View {
                 isSearching = true
                 try await Task.sleep(for: .seconds(2))
                 try await billsModel.searchUser(for: searchText)
-                checkInvitedUser(for: searchText)
-                checkConnectedUser(for: searchText)
+                try await getUserConnectionStatus()
                 isSearching = false
             } catch {
                 isSearching = false
                 print(error)
             }
+        }
+    }
+
+    private func getUserConnectionStatus() async throws {
+        let invitationStatus = try await billsModel.invitedUser(for: searchText)
+        let isConnected = try await billsModel.connectedUser(for: searchText)
+
+        if let invitationStatus {
+            switch invitationStatus {
+            case .sent:
+                userConnectionStatus = .sentInvite
+            case .received:
+                userConnectionStatus = .receivedInvite
+            }
+        } else if isConnected {
+            userConnectionStatus = .connected
+        } else {
+            userConnectionStatus = .unrelated
         }
     }
 
@@ -109,30 +151,10 @@ struct UserConnectionSearchView: View {
             do {
                 isSendingInvite = true
                 try await billsModel.inviteUser(with: id)
+                try await getUserConnectionStatus()
                 isSendingInvite = false
-                isInvited = true
             } catch {
                 isSendingInvite = false
-                print(error)
-            }
-        }
-    }
-
-    private func checkInvitedUser(for id: User.ID) {
-        Task {
-            do {
-                isInvited = try await billsModel.invitedUser(for: id)
-            } catch {
-                print(error)
-            }
-        }
-    }
-
-    private func checkConnectedUser(for id: User.ID) {
-        Task {
-            do {
-                isConnected = try await billsModel.connectedUser(for: id)
-            } catch {
                 print(error)
             }
         }

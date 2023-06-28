@@ -30,12 +30,12 @@ struct AddUserConnectionRequest: RepositoryRequest {
                 .document(senderUserId)
 
             let senderConnection = ConnectionDTO(
-                userId: senderUserId,
+                userUid: senderUserId,
                 role: .LANDLORD
             )
 
             let receiverConnection = ConnectionDTO(
-                userId: receiverUserId,
+                userUid: receiverUserId,
                 role: .TENANT
             )
 
