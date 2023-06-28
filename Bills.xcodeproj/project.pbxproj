@@ -66,6 +66,7 @@
 		BABB97102A4C33A7001462B9 /* GetUserConnectionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB970F2A4C33A7001462B9 /* GetUserConnectionsRequest.swift */; };
 		BABB97122A4C359C001462B9 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB97112A4C359C001462B9 /* Connection.swift */; };
 		BABB97142A4C551D001462B9 /* DeleteUserConnectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB97132A4C551D001462B9 /* DeleteUserConnectionRequest.swift */; };
+		BABB97162A4C6B15001462B9 /* AddBillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABB97152A4C6B15001462B9 /* AddBillView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,6 +123,7 @@
 		BABB970F2A4C33A7001462B9 /* GetUserConnectionsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserConnectionsRequest.swift; sourceTree = "<group>"; };
 		BABB97112A4C359C001462B9 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		BABB97132A4C551D001462B9 /* DeleteUserConnectionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserConnectionRequest.swift; sourceTree = "<group>"; };
+		BABB97152A4C6B15001462B9 /* AddBillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBillView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +233,7 @@
 				BABB96E32A444F7C001462B9 /* BillView.swift */,
 				BABB96E52A447248001462B9 /* PersonCardView.swift */,
 				BABB96EB2A4492B9001462B9 /* BillShareView.swift */,
+				BABB97152A4C6B15001462B9 /* AddBillView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				BAA021982A040B9A006FD11E /* AddUserRequest.swift in Sources */,
 				BAA0219C2A040B9A006FD11E /* UpdateUserRequest.swift in Sources */,
 				BAA021932A040B9A006FD11E /* GetUserRequest.swift in Sources */,
+				BABB97162A4C6B15001462B9 /* AddBillView.swift in Sources */,
 				BABB97022A49D04D001462B9 /* DeleteUserInvitationRequest.swift in Sources */,
 				BABB96FE2A49B9EB001462B9 /* Invitation.swift in Sources */,
 				BABB96DC2A442DDE001462B9 /* UserConnectionSearchView.swift in Sources */,

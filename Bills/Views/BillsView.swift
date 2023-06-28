@@ -29,6 +29,16 @@ struct BillsView: View {
                 }
             }
             .navigationTitle("Bills")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        navigationModel.presentAddBillView()
+                    } label: {
+                        Label("Plus", systemImage: "plus")
+                            .labelStyle(.iconOnly)
+                    }
+                }
+            }
             .sheet(item: $navigationModel.selectedBillForSharing) { bill in
                 NavigationStack {
                     BillShareView(bill: bill)
@@ -37,6 +47,24 @@ struct BillsView: View {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button("Done", role: .cancel) {
                                     navigationModel.dismissConnectionsListView()
+                                }
+                            }
+                        }
+                }
+            }
+            .sheet(isPresented: $navigationModel.isPresentingAddBillView) {
+                NavigationStack {
+                    AddBillView()
+                        .navigationTitle("Add Bill")
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button("Add") {
+                                    //
+                                }
+                            }
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button("Cancel", role: .cancel) {
+                                    navigationModel.dismissAddBillView()
                                 }
                             }
                         }

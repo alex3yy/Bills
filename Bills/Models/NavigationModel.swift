@@ -9,13 +9,23 @@ import Foundation
 
 final class NavigationModel: ObservableObject {
     @Published var selectedTab: Tab = .home
+    @Published var isPresentingAddBillView: Bool = false
     @Published var isPresentingAddConnectionsView: Bool = false
     @Published var isPresentingUserInvitationsListView: Bool = false
     @Published var selectedBillForSharing: Bill?
     
     func reset() {
         selectedTab = .home
+        isPresentingAddBillView = false
         isPresentingAddConnectionsView = false
+    }
+
+    func presentAddBillView() {
+        isPresentingAddBillView = true
+    }
+
+    func dismissAddBillView() {
+        isPresentingAddBillView = false
     }
 
     func presentAddConnectionsView() {
