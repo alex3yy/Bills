@@ -39,7 +39,7 @@ struct UserConnectionSearchView: View {
 
                                 Spacer()
 
-                                if let isConnected {
+                                if let isConnected, isConnected {
                                     Text("Connected")
                                         .foregroundColor(.secondary)
                                 } else if let isInvited {

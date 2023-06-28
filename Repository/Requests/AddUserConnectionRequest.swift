@@ -22,25 +22,25 @@ struct AddUserConnectionRequest: RepositoryRequest {
             let senderConnectionsDocumentsRef = databaseRef.collection("users")
                 .document(senderUserId)
                 .collection("connections")
+                .document(receiverUserId)
 
             let receiverConnectionsDocumentsRef = databaseRef.collection("users")
                 .document(receiverUserId)
                 .collection("connections")
+                .document(senderUserId)
 
             let senderConnection = ConnectionDTO(
-                uid: senderUserId,
                 userId: senderUserId,
                 role: .LANDLORD
             )
 
             let receiverConnection = ConnectionDTO(
-                uid: receiverUserId,
                 userId: receiverUserId,
                 role: .TENANT
             )
 
-            try senderConnectionsDocumentsRef.addDocument(from: receiverConnection)
-            try receiverConnectionsDocumentsRef.addDocument(from: senderConnection)
+            try senderConnectionsDocumentsRef.setData(from: receiverConnection)
+            try receiverConnectionsDocumentsRef.setData(from: senderConnection)
 
             return AddUserConnectionResponse()
         }

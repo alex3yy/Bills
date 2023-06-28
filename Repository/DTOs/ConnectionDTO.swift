@@ -14,7 +14,6 @@ struct ConnectionDTO: Codable {
         case TENANT
     }
 
-    @DocumentID var uid: String?
     var userId: String
     var role: Role
 }
