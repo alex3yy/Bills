@@ -44,6 +44,9 @@ struct DashboardView: View {
                 }
                 .tag(Tab.account)
         }
+        .task {
+            try? await billsModel.getUserInvitations()
+        }
     }
 }
 

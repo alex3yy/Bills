@@ -51,10 +51,12 @@ final class BillsModel: ObservableObject {
 
     // MARK: - Invitations Variables
 
+    /// A collection of send and received invitations.
     @Published private(set) var invitations: [Invitation] = []
 
+    /// The number of received invitations from other users.
     var activeInvitationsCount: Int {
-        2
+        invitations.filter(\.isReceived).count
     }
     
     /// Signs out the current user.
@@ -101,6 +103,7 @@ final class BillsModel: ObservableObject {
         }
     }
 
+    /// Authenticates the current user and stores its data into the database.
     @MainActor
     func checkSignedUpUser() async {
         do {
@@ -122,6 +125,7 @@ final class BillsModel: ObservableObject {
         authState = .signedOut
     }
 
+    /// Stores user's data into the database.
     @MainActor
     func addUserIfNeeded(_ user: User) async throws {
         if !isUserStored {
@@ -137,6 +141,7 @@ final class BillsModel: ObservableObject {
         isUserStored = true
     }
 
+    // MARK: - User data requests
     @MainActor
     func getUser() async throws {
         guard let user = user else { return }
@@ -169,6 +174,7 @@ final class BillsModel: ObservableObject {
         _ = try await gateway.deleteUser(id: userID)
     }
 
+    // MARK: - Search user requests
     @MainActor
     func searchUser(for id: User.ID) async throws {
         searchedUser = nil
@@ -185,6 +191,7 @@ final class BillsModel: ObservableObject {
         self.searchedUser = foundUser
     }
 
+    // MARK: - Invite user requests
     @MainActor
     func inviteUser(with id: User.ID) async throws {
         guard let user else { return }
@@ -200,16 +207,14 @@ final class BillsModel: ObservableObject {
     }
 
     @MainActor
-    func getUserInvitations(completion: (Bool) -> Void = {_ in }) async throws {
+    func getUserInvitations() async throws {
         guard let user else { fatalError("No current user.") }
 
         invitations = []
 
-        completion(false)
         let stream = try await gateway.getUserInvitations(userId: user.id)
         for await invitation in stream {
             invitations = invitation
-            completion(true)
         }
     }
 

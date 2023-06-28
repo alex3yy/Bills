@@ -56,34 +56,14 @@ struct UserInvitationsListView: View {
                 }
             }
         }
-        .task {
-            getUserInvitations()
-        }
-    }
-
-    private func getUserInvitations() {
-        Task {
-            do {
-                isLoadingInvitations = true
-                try await billsModel.getUserInvitations { areLoaded in
-                    isLoadingInvitations = !areLoaded
-                }
-                isLoadingInvitations = false
-            } catch {
-                isLoadingInvitations = false
-                print(error)
-            }
-        }
     }
 
     private func deleteInvitation(for id: User.ID) async throws {
         try await billsModel.deleteUserInvitation(for: id)
-        getUserInvitations()
     }
 
     private func acceptInvitation(for id: User.ID) async throws {
         try await billsModel.acceptUserInvitation(for: id)
-        getUserInvitations()
     }
 }
 
