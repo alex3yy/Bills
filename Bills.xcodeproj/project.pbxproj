@@ -10,6 +10,8 @@
 		BA0A012F2A433B83004D8FE6 /* UserInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A012E2A433B83004D8FE6 /* UserInvitationView.swift */; };
 		BA1A44052A239EAF00376EB3 /* ConnectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1A44042A239EAF00376EB3 /* ConnectionsView.swift */; };
 		BA1A44072A23B41600376EB3 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1A44062A23B41600376EB3 /* AccountView.swift */; };
+		BA6939FE2A4D53C70045FCE3 /* AddBillRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */; };
+		BA693A002A4D59750045FCE3 /* BillDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6939FF2A4D59750045FCE3 /* BillDTO.swift */; };
 		BAA021382A03EBBA006FD11E /* BillsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA021372A03EBBA006FD11E /* BillsApp.swift */; };
 		BAA0213A2A03EBBA006FD11E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA021392A03EBBA006FD11E /* ContentView.swift */; };
 		BAA0213C2A03EBBB006FD11E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BAA0213B2A03EBBB006FD11E /* Assets.xcassets */; };
@@ -73,6 +75,8 @@
 		BA0A012E2A433B83004D8FE6 /* UserInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInvitationView.swift; sourceTree = "<group>"; };
 		BA1A44042A239EAF00376EB3 /* ConnectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsView.swift; sourceTree = "<group>"; };
 		BA1A44062A23B41600376EB3 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBillRequest.swift; sourceTree = "<group>"; };
+		BA6939FF2A4D59750045FCE3 /* BillDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDTO.swift; sourceTree = "<group>"; };
 		BAA021342A03EBBA006FD11E /* Bills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bills.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAA021372A03EBBA006FD11E /* BillsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillsApp.swift; sourceTree = "<group>"; };
 		BAA021392A03EBBA006FD11E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -260,6 +264,7 @@
 				BABB96F12A45CE00001462B9 /* UserMetadataDTO.swift */,
 				BABB96F52A4985AB001462B9 /* InvitationDTO.swift */,
 				BABB97072A4B4116001462B9 /* ConnectionDTO.swift */,
+				BA6939FF2A4D59750045FCE3 /* BillDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -281,6 +286,7 @@
 				BABB970B2A4C108D001462B9 /* CheckConnectedUserRequest.swift */,
 				BABB970F2A4C33A7001462B9 /* GetUserConnectionsRequest.swift */,
 				BABB97132A4C551D001462B9 /* DeleteUserConnectionRequest.swift */,
+				BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -393,12 +399,14 @@
 				BABB97162A4C6B15001462B9 /* AddBillView.swift in Sources */,
 				BABB97022A49D04D001462B9 /* DeleteUserInvitationRequest.swift in Sources */,
 				BABB96FE2A49B9EB001462B9 /* Invitation.swift in Sources */,
+				BA693A002A4D59750045FCE3 /* BillDTO.swift in Sources */,
 				BABB96DC2A442DDE001462B9 /* UserConnectionSearchView.swift in Sources */,
 				BAA0216F2A04058D006FD11E /* Gateway.swift in Sources */,
 				BABB96F02A45CD0D001462B9 /* SearchUserRequest.swift in Sources */,
 				BABB96FA2A49A774001462B9 /* CheckInvitedUserRequest.swift in Sources */,
 				BABB96E62A447248001462B9 /* PersonCardView.swift in Sources */,
 				BABB97142A4C551D001462B9 /* DeleteUserConnectionRequest.swift in Sources */,
+				BA6939FE2A4D53C70045FCE3 /* AddBillRequest.swift in Sources */,
 				BAA021812A0406CF006FD11E /* RoundedProminentButtonStyle.swift in Sources */,
 				BA0A012F2A433B83004D8FE6 /* UserInvitationView.swift in Sources */,
 				BABB96F22A45CE00001462B9 /* UserMetadataDTO.swift in Sources */,

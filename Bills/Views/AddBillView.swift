@@ -7,116 +7,109 @@
 
 import SwiftUI
 
-struct BillConfig {
-    struct Service: Identifiable {
-        var id = UUID()
-        var title: String = ""
-        var value: Double = 0
-    }
-
-    enum Provider: String, Identifiable, CaseIterable {
-        var id: Self { self }
-
-        case digi
-        case orange
-        case eon
-        case electrica
-        case vodafone
-    }
-
-    let mockedServices = [
-        Service(title: "Serv. telecomunicatii", value: Double.random(in: 20...500)),
-        Service(title: "TV", value: Double.random(in: 20...500)),
-        Service(title: "Internet", value: Double.random(in: 20...500)),
-        Service(title: "Consum energie", value: Double.random(in: 20...500)),
-        Service(title: "Gaze naturale", value: Double.random(in: 20...500)),
-        Service(title: "Verificare tehnica", value: Double.random(in: 20...500)),
-        Service(title: "Echipament", value: Double.random(in: 20...500)),
-    ]
-
-    var provider: Provider = .digi
-    var services: [Service] = []
-
-    var total: Double {
-        services.map(\.value).reduce(0, +)
-    }
-
-    mutating func addNewService() {
-        services.append(Service())
-    }
-
-    mutating func generateRandomBill() {
-        services = []
-        provider = Provider.allCases.randomElement()!
-
-        var shuffled = mockedServices.shuffled()
-        for _ in 0..<Int.random(in: 1...4) {
-            let element = shuffled.popLast()!
-            services.append(element)
-        }
-    }
-}
-
 struct AddBillView: View {
 
     @EnvironmentObject private var billsModel: BillsModel
     @EnvironmentObject private var navigationModel: NavigationModel
 
-    @State private var billConfig = BillConfig()
+    @State private var bill = Bill()
+    @State private var isAddingBill: Bool = false
+
+    var user: User? {
+        billsModel.user
+    }
 
     var body: some View {
-        if let user = billsModel.user {
-            Form {
-
-                Section {
-                    Picker("Provider", selection: $billConfig.provider) {
-                        ForEach(BillConfig.Provider.allCases) { provider in
-                            Text(provider.rawValue.capitalized).tag(provider)
-                        }
+        Form {
+            Section {
+                Picker("Provider", selection: $bill.provider) {
+                    ForEach(Bill.Provider.allCases) { provider in
+                        Text(provider.rawValue.capitalized).tag(provider)
                     }
-                    .pickerStyle(.navigationLink)
                 }
+                .pickerStyle(.navigationLink)
+            }
 
-                Section("Client") {
-                    LabeledContent("Name", value: user.name)
-                    LabeledContent("Identifier", value: user.id)
-                }
+            Section("Client") {
+                LabeledContent("Name", value: bill.client.name)
+                LabeledContent("Identifier", value: bill.client.id)
+            }
 
-                Section {
-                    ForEach($billConfig.services) { service in
-                        LabeledContent {
-                            TextField("", value: service.value, format: .currency(code: "RON"))
-                                .multilineTextAlignment(.trailing)
-                                .foregroundColor(.secondary)
-                        } label: {
-                            TextField("", text: service.title, prompt: Text("Service Name..."), axis: .vertical)
-                                .frame(alignment: .leading)
-                                .lineLimit(2)
-                        }
-                    }
-                } header: {
-                    Text("Services")
-                } footer: {
-                    Button {
-                        billConfig.addNewService()
+            Section {
+                ForEach($bill.services) { service in
+                    LabeledContent {
+                        TextField("", value: service.price, format: .currency(code: "RON"))
+                            .multilineTextAlignment(.trailing)
+                            .foregroundColor(.secondary)
                     } label: {
-                        Label("Service", systemImage: "plus")
-                            .foregroundColor(.accentColor)
+                        TextField("", text: service.title, prompt: Text("Service Name..."), axis: .vertical)
+                            .frame(alignment: .leading)
+                            .lineLimit(2)
                     }
-                    .tint(.white)
-                    .buttonBorderShape(.capsule)
-                    .buttonStyle(.borderedProminent)
                 }
-
-                Section {
-                    LabeledContent("Total", value: billConfig.total, format: .currency(code: "RON"))
-                }
-
+            } header: {
+                Text("Services")
+            } footer: {
                 Button {
-                    billConfig.generateRandomBill()
+                    bill.addNewService()
                 } label: {
-                    Text("Generate bill")
+                    Label("Service", systemImage: "plus")
+                        .foregroundColor(.accentColor)
                 }
+                .tint(.white)
+                .buttonBorderShape(.capsule)
+                .buttonStyle(.borderedProminent)
+            }
+
+            Section {
+                LabeledContent("Total", value: bill.price, format: .currency(code: "RON"))
+            }
+
+            Button {
+                bill.generateRandomBill()
+            } label: {
+                Text("Generate bill")
+            }
+        }
+        .task {
+            bill.client.id = user?.id ?? ""
+            bill.client.name = user?.name ?? ""
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    addBill()
+                } label: {
+                    Text("Add")
+                        .opacity(isAddingBill ? 0 : 1)
+                        .overlay {
+                            if isAddingBill {
+                                ProgressView()
+                            }
+                        }
+                }
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Cancel", role: .cancel) {
+                    navigationModel.dismissAddBillView()
+                }
+            }
+        }
+        .disabled(isAddingBill)
+    }
+
+    private func addBill() {
+        Task {
+            do {
+                isAddingBill = true
+                bill.services.removeAll(where: { $0.title.isEmpty })
+                try await billsModel.addBill(bill)
+                isAddingBill = false
+                navigationModel.dismissAddBillView()
+                // TODO: billsModel.getBills()
+            } catch {
+                isAddingBill = false
+                print(error)
             }
         }
     }

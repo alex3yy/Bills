@@ -56,18 +56,6 @@ struct BillsView: View {
                 NavigationStack {
                     AddBillView()
                         .navigationTitle("Add Bill")
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Button("Add") {
-                                    //
-                                }
-                            }
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button("Cancel", role: .cancel) {
-                                    navigationModel.dismissAddBillView()
-                                }
-                            }
-                        }
                 }
             }
         }

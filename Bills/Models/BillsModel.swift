@@ -273,4 +273,13 @@ final class BillsModel: ObservableObject {
             connections.remove(atOffsets: indexSet)
         }
     }
+
+    // MARK: - Bills methods
+
+    @MainActor
+    func addBill(_ bill: Bill) async throws {
+        guard let user else { fatalError("No current user.") }
+
+        try await gateway.addBill(userId: user.id, bill: bill)
+    }
 }

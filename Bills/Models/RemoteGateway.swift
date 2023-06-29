@@ -152,4 +152,32 @@ struct RemoteGateway: Gateway {
 
         _ = try await request.response()
     }
+
+    // MARK: - Bills methods
+
+    func addBill(userId: User.ID, bill: Bill) async throws {
+        let billDTO = BillDTO(
+            uid: "",
+            client: BillDTO.ClientDTO(
+                id: bill.client.id,
+                name: bill.client.name
+            ),
+            provider: bill.provider.rawValue,
+            services: bill.services.map({ service in
+                BillDTO.ServiceDTO(
+                    title: service.title,
+                    price: service.price,
+                    currencyCode: service.currencyCode)
+            }),
+            price: bill.price,
+            currencyCode: bill.currencyCode
+        )
+
+        let request = AddBillRequest(
+            userId: userId,
+            billDto: billDTO
+        )
+
+        _ = try await request.response()
+    }
 }

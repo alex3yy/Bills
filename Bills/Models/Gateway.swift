@@ -28,4 +28,7 @@ protocol Gateway {
     func connectedUser(senderId: User.ID, receiverId: User.ID) async throws -> Bool
     func getUserConnections(userId: User.ID) async throws -> [Connection]
     func deleteUserConnection(senderId: User.ID, receiverId: User.ID) async throws
+
+    // MARK: - Bills methods
+    func addBill(userId: User.ID, bill: Bill) async throws
 }
