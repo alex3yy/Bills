@@ -16,6 +16,7 @@ extension Bill {
         case eon
         case electrica
         case vodafone
+        case unknown
     }
 
     struct Service: Identifiable {
@@ -23,6 +24,10 @@ extension Bill {
         var title: String = ""
         var price: Double = 0
         var currencyCode: String = "RON"
+
+        mutating func roundPrice(fractionalDigits: Int = 2) {
+            price = price.rounded(fractionDigits: fractionalDigits)
+        }
     }
 
     struct Client {
@@ -39,7 +44,7 @@ struct Bill: Identifiable {
     var currencyCode: String = "RON"
 
     var price: Double {
-        services.map(\.price).reduce(0, +)
+        services.map(\.price).reduce(0, +).rounded(fractionDigits: 2)
     }
 
     mutating func addNewService() {
@@ -56,6 +61,12 @@ struct Bill: Identifiable {
             services.append(element)
         }
     }
+
+    mutating func roundPrices(fractionalDigits: Int = 2) {
+        for index in services.startIndex..<services.endIndex {
+            services[index].roundPrice(fractionalDigits: fractionalDigits)
+        }
+    }
 }
 
 extension Bill.Service {
@@ -68,4 +79,28 @@ extension Bill.Service {
         .init(title: "Verificare tehnica", price: Double.random(in: 20...500), currencyCode: "RON"),
         .init(title: "Echipament", price: Double.random(in: 20...500), currencyCode: "RON"),
     ]
+}
+
+extension Bill {
+    init(_ billDto: BillDTO) {
+        self.id = billDto.uid
+        self.client = Bill.Client(billDto.client)
+        self.provider = Provider(rawValue: billDto.provider) ?? .unknown
+        self.services = billDto.services.map(Bill.Service.init)
+    }
+}
+
+extension Bill.Client {
+    init(_ clientDto: BillDTO.ClientDTO) {
+        self.id = clientDto.uid
+        self.name = clientDto.name
+    }
+}
+
+extension Bill.Service {
+    init(_ serviceDto: BillDTO.ServiceDTO) {
+        self.title = serviceDto.title
+        self.price = serviceDto.price
+        self.currencyCode = serviceDto.currencyCode
+    }
 }

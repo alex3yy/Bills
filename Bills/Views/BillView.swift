@@ -8,30 +8,40 @@
 import SwiftUI
 
 struct BillView: View {
-    private let services = ["Internet", "Telefonie mobila", "Telefonie fixa", "Energie electrica", "Abonament TV"]
+
+    var bill: Bill
 
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
-                Text("DIGI")
+            VStack(alignment: .leading, spacing: 8) {
+                Text(bill.provider.rawValue.capitalized)
                     .font(.headline)
 
-                ForEach(0...0, id: \.self) { _ in
-                    Text(services.randomElement()!)
-                        .font(.callout)
-                        .foregroundColor(.secondary)
+                VStack(alignment: .leading) {
+                    ForEach(bill.services) { service in
+                        Text(service.title)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
 
             Spacer()
 
-            Text("29.99 Lei")
+            Text(bill.price, format: .currency(code: "RON"))
         }
     }
 }
 
 struct BillView_Previews: PreviewProvider {
     static var previews: some View {
-        BillView()
+        BillView(bill: Bill(
+            id: "1",
+            client: .init(id: "u1", name: "John Appleseed"),
+            provider: .digi,
+            services: [
+                .init(id: "s1", title: "Serv. reparatii", price: 20, currencyCode: "RON")
+            ],
+            currencyCode: "RON"))
     }
 }

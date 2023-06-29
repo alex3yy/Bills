@@ -64,6 +64,11 @@ final class BillsModel: ObservableObject {
     /// A collection of a user's connections.
     @Published private(set) var connections: [Connection] = []
 
+    // MARK: - Bills variables
+
+    /// A collection of a user's bills.
+    @Published private(set) var bills: [Bill] = []
+
     // MARK: - Auth methods
 
     /// Signs out the current user.
@@ -281,5 +286,12 @@ final class BillsModel: ObservableObject {
         guard let user else { fatalError("No current user.") }
 
         try await gateway.addBill(userId: user.id, bill: bill)
+    }
+
+    @MainActor
+    func getBills() async throws {
+        guard let user else { fatalError("No current user.") }
+
+        bills = try await gateway.getBills(userId: user.id)
     }
 }

@@ -31,4 +31,5 @@ protocol Gateway {
 
     // MARK: - Bills methods
     func addBill(userId: User.ID, bill: Bill) async throws
+    func getBills(userId: User.ID) async throws -> [Bill]
 }

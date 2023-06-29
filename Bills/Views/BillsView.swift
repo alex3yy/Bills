@@ -8,20 +8,23 @@
 import SwiftUI
 
 struct BillsView: View {
+    @EnvironmentObject private var billsModel: BillsModel
     @EnvironmentObject private var navigationModel: NavigationModel
+
+    @State private var isLoadingBills: Bool = false
 
     var body: some View {
         NavigationStack {
             List {
-                ForEach(0...5, id: \.self) { billId in
+                ForEach(billsModel.bills) { bill in
                     NavigationLink {
                         Text("Bill Detail View")
                     } label: {
-                        BillView()
+                        BillView(bill: bill)
                     }
                     .contextMenu {
                         Button {
-                            navigationModel.presentConnectionsListView(for: Bill(id: billId.formatted()))
+                            navigationModel.presentConnectionsListView(for: bill)
                         } label: {
                             Label("Share with...", systemImage: "square.and.arrow.up")
                         }
@@ -29,6 +32,17 @@ struct BillsView: View {
                 }
             }
             .navigationTitle("Bills")
+            .task {
+                getBills()
+            }
+            .overlay {
+                if isLoadingBills {
+                    ProgressView()
+                } else if billsModel.bills.isEmpty {
+                    Text("You have no bills yet.")
+                        .foregroundColor(.secondary)
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -60,11 +74,25 @@ struct BillsView: View {
             }
         }
     }
+
+    private func getBills() {
+        Task {
+            do {
+                isLoadingBills = true
+                try await billsModel.getBills()
+                isLoadingBills = false
+            } catch {
+                isLoadingBills = false
+                print(error)
+            }
+        }
+    }
 }
 
 struct BillsView_Previews: PreviewProvider {
     static var previews: some View {
         BillsView()
+            .environmentObject(BillsModel(gateway: .remote))
             .environmentObject(NavigationModel())
     }
 }

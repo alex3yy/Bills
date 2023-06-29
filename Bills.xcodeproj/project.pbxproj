@@ -10,6 +10,8 @@
 		BA0A012F2A433B83004D8FE6 /* UserInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A012E2A433B83004D8FE6 /* UserInvitationView.swift */; };
 		BA1A44052A239EAF00376EB3 /* ConnectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1A44042A239EAF00376EB3 /* ConnectionsView.swift */; };
 		BA1A44072A23B41600376EB3 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1A44062A23B41600376EB3 /* AccountView.swift */; };
+		BA6471FE2A4D9B1A000AF153 /* GetBillsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6471FD2A4D9B1A000AF153 /* GetBillsRequest.swift */; };
+		BA6472002A4DA261000AF153 /* Double+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6471FF2A4DA261000AF153 /* Double+Rounded.swift */; };
 		BA6939FE2A4D53C70045FCE3 /* AddBillRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */; };
 		BA693A002A4D59750045FCE3 /* BillDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6939FF2A4D59750045FCE3 /* BillDTO.swift */; };
 		BAA021382A03EBBA006FD11E /* BillsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA021372A03EBBA006FD11E /* BillsApp.swift */; };
@@ -75,6 +77,8 @@
 		BA0A012E2A433B83004D8FE6 /* UserInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInvitationView.swift; sourceTree = "<group>"; };
 		BA1A44042A239EAF00376EB3 /* ConnectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsView.swift; sourceTree = "<group>"; };
 		BA1A44062A23B41600376EB3 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		BA6471FD2A4D9B1A000AF153 /* GetBillsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBillsRequest.swift; sourceTree = "<group>"; };
+		BA6471FF2A4DA261000AF153 /* Double+Rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounded.swift"; sourceTree = "<group>"; };
 		BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBillRequest.swift; sourceTree = "<group>"; };
 		BA6939FF2A4D59750045FCE3 /* BillDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDTO.swift; sourceTree = "<group>"; };
 		BAA021342A03EBBA006FD11E /* Bills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bills.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -246,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				BABB96E92A44913F001462B9 /* View+IconBadge.swift */,
+				BA6471FF2A4DA261000AF153 /* Double+Rounded.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -287,6 +292,7 @@
 				BABB970F2A4C33A7001462B9 /* GetUserConnectionsRequest.swift */,
 				BABB97132A4C551D001462B9 /* DeleteUserConnectionRequest.swift */,
 				BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */,
+				BA6471FD2A4D9B1A000AF153 /* GetBillsRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -391,6 +397,7 @@
 				BAA021832A040AD2006FD11E /* UserDTO.swift in Sources */,
 				BAA021522A040034006FD11E /* OnboardingView.swift in Sources */,
 				BABB96F42A4982E9001462B9 /* InviteUserRequest.swift in Sources */,
+				BA6472002A4DA261000AF153 /* Double+Rounded.swift in Sources */,
 				BAA021972A040B9A006FD11E /* DeleteUserRequest.swift in Sources */,
 				BABB97102A4C33A7001462B9 /* GetUserConnectionsRequest.swift in Sources */,
 				BAA021982A040B9A006FD11E /* AddUserRequest.swift in Sources */,
@@ -419,6 +426,7 @@
 				BA1A44052A239EAF00376EB3 /* ConnectionsView.swift in Sources */,
 				BABB96FC2A49B845001462B9 /* GetUserInvitationsRequest.swift in Sources */,
 				BAA0217A2A04063D006FD11E /* RepositoryRequest.swift in Sources */,
+				BA6471FE2A4D9B1A000AF153 /* GetBillsRequest.swift in Sources */,
 				BAA021732A0405D0006FD11E /* User.swift in Sources */,
 				BAA021562A040152006FD11E /* AccountSettingsView.swift in Sources */,
 				BABB96EC2A4492B9001462B9 /* BillShareView.swift in Sources */,

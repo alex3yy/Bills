@@ -103,10 +103,11 @@ struct AddBillView: View {
             do {
                 isAddingBill = true
                 bill.services.removeAll(where: { $0.title.isEmpty })
+                bill.roundPrices()
                 try await billsModel.addBill(bill)
                 isAddingBill = false
                 navigationModel.dismissAddBillView()
-                // TODO: billsModel.getBills()
+                try await billsModel.getBills()
             } catch {
                 isAddingBill = false
                 print(error)

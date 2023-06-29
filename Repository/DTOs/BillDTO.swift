@@ -15,7 +15,7 @@ extension BillDTO {
     }
 
     struct ClientDTO: Codable {
-        var id: String
+        var uid: String
         var name: String
     }
 }
