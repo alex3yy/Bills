@@ -57,13 +57,6 @@ struct BillsView: View {
                 NavigationStack {
                     BillShareView(bill: bill)
                         .navigationTitle("Share Bill")
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Button("Done", role: .cancel) {
-                                    navigationModel.dismissConnectionsListView()
-                                }
-                            }
-                        }
                 }
             }
             .sheet(isPresented: $navigationModel.isPresentingAddBillView) {

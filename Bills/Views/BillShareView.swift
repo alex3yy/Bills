@@ -9,11 +9,13 @@ import SwiftUI
 
 struct BillShareView: View {
     @EnvironmentObject private var billsModel: BillsModel
+    @EnvironmentObject private var navigationModel: NavigationModel
 
     var bill: Bill
 
     @State private var searchText: String = ""
     @State private var isLoadingConnections: Bool = false
+    @State private var isSharingBill: Bool = false
 
     var filteredConnections: [Connection] {
         guard !searchText.isEmpty else {
@@ -41,7 +43,7 @@ struct BillShareView: View {
                             Spacer()
 
                             Button {
-
+                                shareBill(with: connection.id)
                             } label: {
                                 Text("Share")
                                     .font(.callout)
@@ -58,12 +60,14 @@ struct BillShareView: View {
         .task {
             getUserConnections()
         }
-//        .onChange(of: searchText) { newValue in
-//            //billsModel.searchUser(using: newValue)
-//        }
-//        .onSubmit {
-//            //billsModel.searchUser(using: newValue)
-//        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Done", role: .cancel) {
+                    navigationModel.dismissConnectionsListView()
+                }
+            }
+        }
+        .disabled(isSharingBill)
     }
 
     private func getUserConnections() {
@@ -78,6 +82,19 @@ struct BillShareView: View {
             }
         }
     }
+
+    private func shareBill(with userId: User.ID) {
+        Task {
+            do {
+                isSharingBill = true
+                try await billsModel.shareBill(userId: userId, billId: bill.id)
+                isSharingBill = false
+            } catch {
+                isSharingBill = false
+                print(error)
+            }
+        }
+    }
 }
 
 struct BillShareView_Previews: PreviewProvider {
@@ -85,5 +102,7 @@ struct BillShareView_Previews: PreviewProvider {
         NavigationStack {
             BillShareView(bill: Bill(id: "1"))
         }
+        .environmentObject(BillsModel(gateway: .remote))
+        .environmentObject(NavigationModel())
     }
 }
