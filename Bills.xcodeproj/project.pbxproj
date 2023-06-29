@@ -13,6 +13,8 @@
 		BA6471FE2A4D9B1A000AF153 /* GetBillsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6471FD2A4D9B1A000AF153 /* GetBillsRequest.swift */; };
 		BA6472002A4DA261000AF153 /* Double+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6471FF2A4DA261000AF153 /* Double+Rounded.swift */; };
 		BA6472022A4DBA64000AF153 /* AddSharedBillRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6472012A4DBA64000AF153 /* AddSharedBillRequest.swift */; };
+		BA6472062A4DE310000AF153 /* ConnectionShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6472052A4DE310000AF153 /* ConnectionShareCell.swift */; };
+		BA6472082A4DE334000AF153 /* ChecklistToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6472072A4DE334000AF153 /* ChecklistToggleStyle.swift */; };
 		BA6939FE2A4D53C70045FCE3 /* AddBillRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */; };
 		BA693A002A4D59750045FCE3 /* BillDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6939FF2A4D59750045FCE3 /* BillDTO.swift */; };
 		BAA021382A03EBBA006FD11E /* BillsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA021372A03EBBA006FD11E /* BillsApp.swift */; };
@@ -81,6 +83,8 @@
 		BA6471FD2A4D9B1A000AF153 /* GetBillsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBillsRequest.swift; sourceTree = "<group>"; };
 		BA6471FF2A4DA261000AF153 /* Double+Rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounded.swift"; sourceTree = "<group>"; };
 		BA6472012A4DBA64000AF153 /* AddSharedBillRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSharedBillRequest.swift; sourceTree = "<group>"; };
+		BA6472052A4DE310000AF153 /* ConnectionShareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionShareCell.swift; sourceTree = "<group>"; };
+		BA6472072A4DE334000AF153 /* ChecklistToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistToggleStyle.swift; sourceTree = "<group>"; };
 		BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBillRequest.swift; sourceTree = "<group>"; };
 		BA6939FF2A4D59750045FCE3 /* BillDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDTO.swift; sourceTree = "<group>"; };
 		BAA021342A03EBBA006FD11E /* Bills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bills.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +248,8 @@
 				BABB96E52A447248001462B9 /* PersonCardView.swift */,
 				BABB96EB2A4492B9001462B9 /* BillShareView.swift */,
 				BABB97152A4C6B15001462B9 /* AddBillView.swift */,
+				BA6472052A4DE310000AF153 /* ConnectionShareCell.swift */,
+				BA6472072A4DE334000AF153 /* ChecklistToggleStyle.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -435,6 +441,8 @@
 				BAA021562A040152006FD11E /* AccountSettingsView.swift in Sources */,
 				BABB96EC2A4492B9001462B9 /* BillShareView.swift in Sources */,
 				BABB97082A4B4116001462B9 /* ConnectionDTO.swift in Sources */,
+				BA6472062A4DE310000AF153 /* ConnectionShareCell.swift in Sources */,
+				BA6472082A4DE334000AF153 /* ChecklistToggleStyle.swift in Sources */,
 				BAA0214E2A03FF94006FD11E /* BillsModel.swift in Sources */,
 				BABB96F62A4985AB001462B9 /* InvitationDTO.swift in Sources */,
 				BABB96F82A498DC8001462B9 /* GetUserMetadataRequest.swift in Sources */,

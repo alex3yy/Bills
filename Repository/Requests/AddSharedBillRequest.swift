@@ -15,7 +15,7 @@ struct AddSharedBillResponse: RepositoryResponse {
 
 struct AddSharedBillRequest: RepositoryRequest {
 
-    var viewerId: String = ""
+    var viewerIds: [String] = []
     var billId: String = ""
 
     func response() async throws -> AddSharedBillResponse {
@@ -24,7 +24,7 @@ struct AddSharedBillRequest: RepositoryRequest {
                 .collection("bills")
                 .document(billId)
 
-            billsDocumentsRef.updateData(["viewersUids": FieldValue.arrayUnion([viewerId])])
+            billsDocumentsRef.updateData(["viewersUids": viewerIds])
 
             return AddSharedBillResponse()
         }

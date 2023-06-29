@@ -190,9 +190,9 @@ struct RemoteGateway: Gateway {
         return response.bills.map(Bill.init)
     }
 
-    func addSharedBill(viewerId: User.ID, billId: Bill.ID) async throws {
+    func addSharedBill(viewerIds: [Connection.ID], billId: Bill.ID) async throws {
         var request = AddSharedBillRequest()
-        request.viewerId = viewerId
+        request.viewerIds = viewerIds
         request.billId = billId
 
         _ = try await request.response()

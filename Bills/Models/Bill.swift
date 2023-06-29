@@ -42,6 +42,7 @@ struct Bill: Identifiable {
     var provider: Provider = .digi
     var services: [Service] = []
     var currencyCode: String = "RON"
+    var viewersIds: [String] = []
 
     var price: Double {
         services.map(\.price).reduce(0, +).rounded(fractionDigits: 2)
@@ -87,6 +88,7 @@ extension Bill {
         self.client = Bill.Client(billDto.client)
         self.provider = Provider(rawValue: billDto.provider) ?? .unknown
         self.services = billDto.services.map(Bill.Service.init)
+        self.viewersIds = billDto.viewersUids
     }
 }
 

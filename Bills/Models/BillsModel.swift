@@ -270,8 +270,6 @@ final class BillsModel: ObservableObject {
 
     @MainActor
     func deleteUserConnections(atOffsets indexSet: IndexSet) async throws {
-        guard let user else { fatalError("No current user.") }
-
         for index in indexSet {
             let id = connections[index].id
             try await deleteUserConnection(for: id)
@@ -296,7 +294,7 @@ final class BillsModel: ObservableObject {
     }
 
     @MainActor
-    func shareBill(userId: User.ID, billId: Bill.ID) async throws {
-        try await gateway.addSharedBill(viewerId: userId, billId: billId)
+    func shareBill(connectionIds: [Connection.ID], billId: Bill.ID) async throws {
+        try await gateway.addSharedBill(viewerIds: connectionIds, billId: billId)
     }
 }

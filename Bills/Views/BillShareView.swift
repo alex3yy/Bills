@@ -17,6 +17,8 @@ struct BillShareView: View {
     @State private var isLoadingConnections: Bool = false
     @State private var isSharingBill: Bool = false
 
+    @State private var selectedConnections: [Connection.ID: Bool] = [:]
+
     var filteredConnections: [Connection] {
         guard !searchText.isEmpty else {
             return billsModel.connections
@@ -37,62 +39,73 @@ struct BillShareView: View {
             } else {
                 List {
                     ForEach(filteredConnections) { connection in
-                        HStack {
-                            PersonCardView(user: connection.user)
-
-                            Spacer()
-
-                            Button {
-                                shareBill(with: connection.id)
-                            } label: {
-                                Text("Share")
-                                    .font(.callout)
-                                    .fontWeight(.semibold)
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .buttonBorderShape(.capsule)
-                        }
+                        ConnectionShareCell(connection: connection, isShared: shareBinding(for: connection.id))
                     }
                 }
             }
         }
         .searchable(text: $searchText)
         .task {
-            getUserConnections()
+            await getUserConnections()
+            markSharingConnections()
         }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Done", role: .cancel) {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Cancel", role: .cancel) {
                     navigationModel.dismissConnectionsListView()
+                }
+            }
+
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Save", role: .cancel) {
+                    shareBill(with: Array(selectedConnections.filter({$0.value == true}).keys))
                 }
             }
         }
         .disabled(isSharingBill)
     }
 
-    private func getUserConnections() {
+    private func markSharingConnections() {
+        for connection in billsModel.connections {
+            if bill.viewersIds.contains(connection.id) {
+                selectedConnections[connection.id] = true
+            } else {
+                selectedConnections[connection.id] = false
+            }
+        }
+    }
+
+    private func getUserConnections() async {
+        do {
+            isLoadingConnections = true
+            try await billsModel.getUserConnections()
+            isLoadingConnections = false
+        } catch {
+            isLoadingConnections = false
+            print(error)
+        }
+    }
+
+    private func shareBill(with connectionIds: [Connection.ID]) {
         Task {
             do {
-                isLoadingConnections = true
-                try await billsModel.getUserConnections()
-                isLoadingConnections = false
+                isSharingBill = true
+                try await billsModel.shareBill(connectionIds: connectionIds, billId: bill.id)
+                isSharingBill = false
+                try await billsModel.getBills()
+                navigationModel.dismissConnectionsListView()
             } catch {
-                isLoadingConnections = false
+                isSharingBill = false
                 print(error)
             }
         }
     }
 
-    private func shareBill(with userId: User.ID) {
-        Task {
-            do {
-                isSharingBill = true
-                try await billsModel.shareBill(userId: userId, billId: bill.id)
-                isSharingBill = false
-            } catch {
-                isSharingBill = false
-                print(error)
-            }
+    private func shareBinding(for connectionId: Connection.ID) -> Binding<Bool> {
+        Binding {
+            selectedConnections[connectionId] ?? false
+        } set: { newValue in
+            selectedConnections[connectionId] = newValue
         }
     }
 }
