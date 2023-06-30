@@ -87,31 +87,17 @@ struct ConnectionsView: View {
                     EditButton()
                 }
             }
-            .sheet(isPresented: $navigationModel.isPresentingAddConnectionsView) {
-                NavigationStack {
-                    UserConnectionSearchView()
-                        .navigationTitle("Add Connection")
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Button("Done", role: .cancel) {
-                                    navigationModel.dismissAddConnectionsView()
-                                }
-                            }
-                        }
-                }
+        }
+        .sheet(isPresented: $navigationModel.isPresentingAddConnectionsView) {
+            NavigationStack {
+                UserConnectionSearchView()
+                    .navigationTitle("Add Connection")
             }
-            .sheet(isPresented: $navigationModel.isPresentingUserInvitationsListView) {
-                NavigationStack {
-                    UserInvitationsListView()
-                        .navigationTitle("Invitations")
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Button("Done", role: .cancel) {
-                                    navigationModel.dismissUserInvitationsListView()
-                                }
-                            }
-                        }
-                }
+        }
+        .sheet(isPresented: $navigationModel.isPresentingUserInvitationsListView) {
+            NavigationStack {
+                UserInvitationsListView()
+                    .navigationTitle("Invitations")
             }
         }
     }

@@ -16,6 +16,7 @@ enum UserConnectionStatus {
 
 struct UserConnectionSearchView: View {
     @EnvironmentObject private var billsModel: BillsModel
+    @EnvironmentObject private var navigationModel: NavigationModel
 
     @State private var searchText: String = ""
     @State private var searchTask: Task<Void, Never>?
@@ -24,18 +25,13 @@ struct UserConnectionSearchView: View {
     @State private var isSendingInvite: Bool = false
 
     @State private var userConnectionStatus: UserConnectionStatus?
-    //@State private var isInvited: Bool?
-
-    //@State private var isConnected: Bool?
-
-//    @State private var matchingUser: User?
 
     var invitationStatus: Invitation.Status? {
         billsModel.invitations.first(where: { $0.user.id == searchText }).map(\.status)
     }
 
     var body: some View {
-        Group {
+        VStack {
             if isSearching {
                 ProgressView()
             } else {
@@ -98,6 +94,13 @@ struct UserConnectionSearchView: View {
         }
         .onSubmit {
             performSearch()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Done", role: .cancel) {
+                    navigationModel.dismissAddConnectionsView()
+                }
+            }
         }
     }
 

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UserInvitationsListView: View {
     @EnvironmentObject private var billsModel: BillsModel
+    @EnvironmentObject private var navigationModel: NavigationModel
 
     @State private var isLoadingInvitations: Bool = false
 
@@ -53,6 +54,13 @@ struct UserInvitationsListView: View {
                             }
                         }
                     }
+                }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Done", role: .cancel) {
+                    navigationModel.dismissUserInvitationsListView()
                 }
             }
         }
