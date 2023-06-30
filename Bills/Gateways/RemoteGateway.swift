@@ -215,4 +215,11 @@ struct RemoteGateway: Gateway {
 
         _ = try await request.response()
     }
+
+    func deleteUserSharedBills(userId: User.ID) async throws {
+        var request = DeleteSharedBillsForUserRequest()
+        request.userId = userId
+
+        _ = try await request.response()
+    }
 }

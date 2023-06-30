@@ -10,6 +10,7 @@ import SwiftUI
 struct BillDetailView: View {
 
     var bill: Bill
+    var userId: User.ID
     var shareAction: () -> Void
     var payAction: () async throws -> Void
 
@@ -60,12 +61,14 @@ struct BillDetailView: View {
         }
         .navigationTitle("Details")
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    shareAction()
-                } label: {
-                    Label("Share", systemImage: "square.and.arrow.up")
-                        .labelStyle(.iconOnly)
+            if bill.isOwner(userId: userId) {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        shareAction()
+                    } label: {
+                        Label("Share", systemImage: "square.and.arrow.up")
+                            .labelStyle(.iconOnly)
+                    }
                 }
             }
         }
@@ -109,6 +112,7 @@ struct BillDetailView_Previews: PreviewProvider {
                     .init(id: "s1", title: "Serv. reparatii", price: 20, currencyCode: "RON")
                 ],
                 currencyCode: "RON"),
+            userId: "u2",
             shareAction: {},
             payAction: {}
         )

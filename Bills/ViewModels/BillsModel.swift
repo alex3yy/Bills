@@ -272,9 +272,13 @@ final class BillsModel: ObservableObject {
 
     @MainActor
     func deleteUserConnections(atOffsets indexSet: IndexSet) async throws {
+        guard let user else { fatalError("No current user.") }
+
         for index in indexSet {
             let id = connections[index].id
             try await deleteUserConnection(for: id)
+            try await deleteUserSharedBills(for: id)
+            try await deleteUserSharedBills(for: user.id)
             connections.remove(atOffsets: indexSet)
         }
     }
@@ -309,5 +313,10 @@ final class BillsModel: ObservableObject {
     @MainActor
     func payBill(billId: Bill.ID) async throws {
         try await gateway.payBill(billId: billId)
+    }
+
+    @MainActor
+    func deleteUserSharedBills(for id: User.ID) async throws {
+        try await gateway.deleteUserSharedBills(userId: id)
     }
 }

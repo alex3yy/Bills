@@ -26,15 +26,17 @@ struct BillsView: View {
                 }
                 .buttonStyle(.plain)
                 .contextMenu {
-                    Button {
-                        navigationModel.presentConnectionsListView(for: bill)
-                    } label: {
-                        Label("Share with...", systemImage: "square.and.arrow.up")
+                    if bill.isOwner(userId: billsModel.user?.id ?? "") {
+                        Button {
+                            navigationModel.presentConnectionsListView(for: bill)
+                        } label: {
+                            Label("Share with...", systemImage: "square.and.arrow.up")
+                        }
                     }
                 }
             }
             .navigationDestination(for: Bill.self) { bill in
-                BillDetailView(bill: bill) {
+                BillDetailView(bill: bill, userId: billsModel.user?.id ?? "") {
                     navigationModel.presentConnectionsListView(for: bill)
                 } payAction: {
                     try await payBill(billId: bill.id)
@@ -51,11 +53,13 @@ struct BillsView: View {
                 await getBills()
             }
             .overlay {
-                if isLoadingBills {
-                    ProgressView()
-                } else if billsModel.bills.isEmpty {
-                    Text("You have no bills yet.")
-                        .foregroundColor(.secondary)
+                VStack {
+                    if isLoadingBills {
+                        ProgressView()
+                    } else if billsModel.bills.isEmpty {
+                        Text("You have no bills yet.")
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
             .toolbar {
