@@ -303,4 +303,9 @@ final class BillsModel: ObservableObject {
     func shareBill(connectionIds: [Connection.ID], billId: Bill.ID) async throws {
         try await gateway.addSharedBill(viewerIds: connectionIds, billId: billId)
     }
+
+    @MainActor
+    func payBill(billId: Bill.ID) async throws {
+        try await gateway.payBill(billId: billId)
+    }
 }

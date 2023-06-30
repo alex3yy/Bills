@@ -17,6 +17,8 @@
 		BA6472082A4DE334000AF153 /* ChecklistToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6472072A4DE334000AF153 /* ChecklistToggleStyle.swift */; };
 		BA64720A2A4EA34B000AF153 /* GetSharedBillsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6472092A4EA34B000AF153 /* GetSharedBillsRequest.swift */; };
 		BA64720D2A4EA6D7000AF153 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = BA64720F2A4EA6D7000AF153 /* Localizable.stringsdict */; };
+		BA6472112A4EC222000AF153 /* BillPaymentStatusLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6472102A4EC222000AF153 /* BillPaymentStatusLabel.swift */; };
+		BA6472132A4ED93A000AF153 /* PayBillRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6472122A4ED93A000AF153 /* PayBillRequest.swift */; };
 		BA6939FE2A4D53C70045FCE3 /* AddBillRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */; };
 		BA693A002A4D59750045FCE3 /* BillDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6939FF2A4D59750045FCE3 /* BillDTO.swift */; };
 		BAA021382A03EBBA006FD11E /* BillsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA021372A03EBBA006FD11E /* BillsApp.swift */; };
@@ -89,6 +91,8 @@
 		BA6472072A4DE334000AF153 /* ChecklistToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistToggleStyle.swift; sourceTree = "<group>"; };
 		BA6472092A4EA34B000AF153 /* GetSharedBillsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSharedBillsRequest.swift; sourceTree = "<group>"; };
 		BA64720E2A4EA6D7000AF153 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		BA6472102A4EC222000AF153 /* BillPaymentStatusLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BillPaymentStatusLabel.swift; path = Repository/Requests/BillPaymentStatusLabel.swift; sourceTree = SOURCE_ROOT; };
+		BA6472122A4ED93A000AF153 /* PayBillRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayBillRequest.swift; sourceTree = "<group>"; };
 		BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBillRequest.swift; sourceTree = "<group>"; };
 		BA6939FF2A4D59750045FCE3 /* BillDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDTO.swift; sourceTree = "<group>"; };
 		BAA021342A03EBBA006FD11E /* Bills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bills.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,6 +259,7 @@
 				BABB97152A4C6B15001462B9 /* AddBillView.swift */,
 				BA6472052A4DE310000AF153 /* ConnectionShareCell.swift */,
 				BA6472072A4DE334000AF153 /* ChecklistToggleStyle.swift */,
+				BA6472102A4EC222000AF153 /* BillPaymentStatusLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -308,6 +313,7 @@
 				BA6471FD2A4D9B1A000AF153 /* GetBillsRequest.swift */,
 				BA6472012A4DBA64000AF153 /* UpdateSharedBillRequest.swift */,
 				BA6472092A4EA34B000AF153 /* GetSharedBillsRequest.swift */,
+				BA6472122A4ED93A000AF153 /* PayBillRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -434,9 +440,11 @@
 				BAA021812A0406CF006FD11E /* RoundedProminentButtonStyle.swift in Sources */,
 				BA0A012F2A433B83004D8FE6 /* UserInvitationView.swift in Sources */,
 				BABB96F22A45CE00001462B9 /* UserMetadataDTO.swift in Sources */,
+				BA6472132A4ED93A000AF153 /* PayBillRequest.swift in Sources */,
 				BA1A44072A23B41600376EB3 /* AccountView.swift in Sources */,
 				BA6472022A4DBA64000AF153 /* UpdateSharedBillRequest.swift in Sources */,
 				BABB96E22A444EAC001462B9 /* BillsView.swift in Sources */,
+				BA6472112A4EC222000AF153 /* BillPaymentStatusLabel.swift in Sources */,
 				BABB96DE2A444680001462B9 /* UserInvitationsListView.swift in Sources */,
 				BAA021542A04012A006FD11E /* LoadingErrorView.swift in Sources */,
 				BABB970C2A4C108D001462B9 /* CheckConnectedUserRequest.swift in Sources */,

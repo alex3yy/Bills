@@ -34,4 +34,5 @@ protocol Gateway {
     func getBills(userId: User.ID) async throws -> [Bill]
     func addSharedBill(viewerIds: [Connection.ID], billId: Bill.ID) async throws
     func getSharedBills(userId: User.ID) async throws -> [Bill]
+    func payBill(billId: Bill.ID) async throws
 }

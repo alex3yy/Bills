@@ -29,7 +29,9 @@ struct AddBillRequest: RepositoryRequest {
                 provider: billDto.provider,
                 services: billDto.services,
                 price: billDto.price,
-                currencyCode: billDto.currencyCode
+                currencyCode: billDto.currencyCode,
+                dueDate: billDto.dueDate,
+                paymentStatus: billDto.paymentStatus
             )
 
             try billsDocumentsRef.setData(from: bill)

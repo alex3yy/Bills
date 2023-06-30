@@ -27,6 +27,8 @@ struct BillDTO: Codable {
     var services: [ServiceDTO]
     var price: Double
     var currencyCode: String
+    var dueDate: Date
+    var paymentStatus: String
     var isShared: Bool = false
     var viewersUids: [String] = []
 }

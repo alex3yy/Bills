@@ -11,11 +11,16 @@ struct BillView: View {
 
     var bill: Bill
     var userId: User.ID
+    var payAction: () async throws -> Void
+
+    @State private var isPayingBill: Bool = false
 
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
                 VStack(alignment: .leading, spacing: 4) {
+                    BillPaymentStatusLabel(dueDate: bill.dueDate, paymentStatus: bill.paymentStatus)
+
                     Text(bill.provider.rawValue.capitalized)
                         .font(.headline)
 
@@ -44,7 +49,34 @@ struct BillView: View {
 
             Spacer()
 
-            Text(bill.price, format: .currency(code: "RON"))
+            VStack(alignment: .trailing) {
+                Text(bill.price, format: .currency(code: "RON"))
+
+                if !bill.isPaid {
+                    Button {
+                        payBill()
+                    } label: {
+                        Text("Pay")
+                    }
+                    .buttonBorderShape(.roundedRectangle)
+                    .buttonStyle(.borderedProminent)
+                }
+            }
+        }
+        .contentShape(Rectangle())
+    }
+
+    private func payBill() {
+        Task {
+            do {
+                isPayingBill = true
+                try await payAction()
+                isPayingBill = false
+            } catch {
+                isPayingBill = false
+                print(error
+                )
+            }
         }
     }
 }
@@ -58,6 +90,6 @@ struct BillView_Previews: PreviewProvider {
             services: [
                 .init(id: "s1", title: "Serv. reparatii", price: 20, currencyCode: "RON")
             ],
-            currencyCode: "RON"), userId: "u2")
+            currencyCode: "RON"), userId: "u2", payAction: {})
     }
 }

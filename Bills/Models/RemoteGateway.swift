@@ -170,7 +170,9 @@ struct RemoteGateway: Gateway {
                     currencyCode: service.currencyCode)
             }),
             price: bill.price,
-            currencyCode: bill.currencyCode
+            currencyCode: bill.currencyCode,
+            dueDate: bill.dueDate,
+            paymentStatus: bill.paymentStatus.rawValue
         )
 
         let request = AddBillRequest(
@@ -205,5 +207,12 @@ struct RemoteGateway: Gateway {
         let response = try await request.response()
 
         return response.bills.map(Bill.init)
+    }
+
+    func payBill(billId: Bill.ID) async throws {
+        var request = PayBillRequest()
+        request.id = billId
+
+        _ = try await request.response()
     }
 }

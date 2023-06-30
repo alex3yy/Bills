@@ -12,24 +12,30 @@ struct BillsView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
 
     @State private var isLoadingBills: Bool = false
+    @State private var path = NavigationPath()
 
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(billsModel.bills) { bill in
-                    NavigationLink {
-                        Text("Bill Detail View")
-                    } label: {
-                        BillView(bill: bill, userId: billsModel.user?.id ?? "")
-                    }
-                    .contextMenu {
-                        Button {
-                            navigationModel.presentConnectionsListView(for: bill)
-                        } label: {
-                            Label("Share with...", systemImage: "square.and.arrow.up")
-                        }
+        NavigationStack(path: $path) {
+            List(billsModel.bills) { bill in
+                Button {
+                    path.append(bill)
+                } label: {
+                    BillView(bill: bill, userId: billsModel.user?.id ?? "") {
+                        try await billsModel.payBill(billId: bill.id)
+                        try await billsModel.getBills()
                     }
                 }
+                .buttonStyle(.plain)
+                .contextMenu {
+                    Button {
+                        navigationModel.presentConnectionsListView(for: bill)
+                    } label: {
+                        Label("Share with...", systemImage: "square.and.arrow.up")
+                    }
+                }
+            }
+            .navigationDestination(for: Bill.self) { bill in
+                Text("Bill Detail View")
             }
             .navigationTitle("Bills")
             .animation(.default, value: billsModel.bills)
