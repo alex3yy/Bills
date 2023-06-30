@@ -8,7 +8,7 @@
 import Foundation
 
 extension Bill {
-    enum Provider: String, Identifiable, CaseIterable {
+    enum Provider: String, Identifiable, CaseIterable, Equatable {
         var id: Self { self }
 
         case digi
@@ -19,7 +19,7 @@ extension Bill {
         case unknown
     }
 
-    struct Service: Identifiable {
+    struct Service: Identifiable, Equatable {
         var id: String = UUID().uuidString
         var title: String = ""
         var price: Double = 0
@@ -30,22 +30,37 @@ extension Bill {
         }
     }
 
-    struct Client {
+    struct Client: Equatable {
         var id: String = ""
         var name: String = ""
     }
 }
 
-struct Bill: Identifiable {
+struct Bill: Identifiable, Equatable {
     var id: String = ""
     var client: Client = Client()
     var provider: Provider = .digi
     var services: [Service] = []
     var currencyCode: String = "RON"
     var viewersIds: [String] = []
+    var isShared: Bool = false
 
     var price: Double {
         services.map(\.price).reduce(0, +).rounded(fractionDigits: 2)
+    }
+
+    var viewersCount: Int {
+        viewersIds.count
+    }
+
+    func isOwner(userId: User.ID) -> Bool {
+        client.id == userId
+    }
+
+    func isSharedWithUser(userId: User.ID) -> Bool {
+        guard isShared else { return false }
+
+        return client.id != userId
     }
 
     mutating func addNewService() {
@@ -89,6 +104,7 @@ extension Bill {
         self.provider = Provider(rawValue: billDto.provider) ?? .unknown
         self.services = billDto.services.map(Bill.Service.init)
         self.viewersIds = billDto.viewersUids
+        self.isShared = billDto.isShared
     }
 }
 

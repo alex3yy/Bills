@@ -15,6 +15,8 @@
 		BA6472022A4DBA64000AF153 /* UpdateSharedBillRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6472012A4DBA64000AF153 /* UpdateSharedBillRequest.swift */; };
 		BA6472062A4DE310000AF153 /* ConnectionShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6472052A4DE310000AF153 /* ConnectionShareCell.swift */; };
 		BA6472082A4DE334000AF153 /* ChecklistToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6472072A4DE334000AF153 /* ChecklistToggleStyle.swift */; };
+		BA64720A2A4EA34B000AF153 /* GetSharedBillsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6472092A4EA34B000AF153 /* GetSharedBillsRequest.swift */; };
+		BA64720D2A4EA6D7000AF153 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = BA64720F2A4EA6D7000AF153 /* Localizable.stringsdict */; };
 		BA6939FE2A4D53C70045FCE3 /* AddBillRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */; };
 		BA693A002A4D59750045FCE3 /* BillDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6939FF2A4D59750045FCE3 /* BillDTO.swift */; };
 		BAA021382A03EBBA006FD11E /* BillsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA021372A03EBBA006FD11E /* BillsApp.swift */; };
@@ -85,6 +87,8 @@
 		BA6472012A4DBA64000AF153 /* UpdateSharedBillRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSharedBillRequest.swift; sourceTree = "<group>"; };
 		BA6472052A4DE310000AF153 /* ConnectionShareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionShareCell.swift; sourceTree = "<group>"; };
 		BA6472072A4DE334000AF153 /* ChecklistToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistToggleStyle.swift; sourceTree = "<group>"; };
+		BA6472092A4EA34B000AF153 /* GetSharedBillsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSharedBillsRequest.swift; sourceTree = "<group>"; };
+		BA64720E2A4EA6D7000AF153 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBillRequest.swift; sourceTree = "<group>"; };
 		BA6939FF2A4D59750045FCE3 /* BillDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDTO.swift; sourceTree = "<group>"; };
 		BAA021342A03EBBA006FD11E /* Bills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bills.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +189,7 @@
 				BAA0213B2A03EBBB006FD11E /* Assets.xcassets */,
 				BAA021452A03ED12006FD11E /* LaunchScreen.storyboard */,
 				BAA021572A04025C006FD11E /* GoogleService-Info.plist */,
+				BA64720F2A4EA6D7000AF153 /* Localizable.stringsdict */,
 				BAA0214A2A03F909006FD11E /* Models */,
 				BAA0214B2A03F914006FD11E /* Views */,
 				BAA0214C2A03F91F006FD11E /* Utilities */,
@@ -302,6 +307,7 @@
 				BA6939FD2A4D53C70045FCE3 /* AddBillRequest.swift */,
 				BA6471FD2A4D9B1A000AF153 /* GetBillsRequest.swift */,
 				BA6472012A4DBA64000AF153 /* UpdateSharedBillRequest.swift */,
+				BA6472092A4EA34B000AF153 /* GetSharedBillsRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -381,6 +387,7 @@
 				BAA021462A03ED12006FD11E /* LaunchScreen.storyboard in Resources */,
 				BAA021582A04025C006FD11E /* GoogleService-Info.plist in Resources */,
 				BAA0213F2A03EBBB006FD11E /* Preview Assets.xcassets in Resources */,
+				BA64720D2A4EA6D7000AF153 /* Localizable.stringsdict in Resources */,
 				BAA0213C2A03EBBB006FD11E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,6 +411,7 @@
 				BAA021482A03F83E006FD11E /* DashboardView.swift in Sources */,
 				BABB96EE2A4495A4001462B9 /* Bill.swift in Sources */,
 				BAA021832A040AD2006FD11E /* UserDTO.swift in Sources */,
+				BA64720A2A4EA34B000AF153 /* GetSharedBillsRequest.swift in Sources */,
 				BAA021522A040034006FD11E /* OnboardingView.swift in Sources */,
 				BABB96F42A4982E9001462B9 /* InviteUserRequest.swift in Sources */,
 				BA6472002A4DA261000AF153 /* Double+Rounded.swift in Sources */,
@@ -451,6 +459,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BA64720F2A4EA6D7000AF153 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA64720E2A4EA6D7000AF153 /* en */,
+			);
+			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		BAA021402A03EBBB006FD11E /* Debug */ = {

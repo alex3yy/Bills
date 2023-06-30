@@ -290,7 +290,13 @@ final class BillsModel: ObservableObject {
     func getBills() async throws {
         guard let user else { fatalError("No current user.") }
 
-        bills = try await gateway.getBills(userId: user.id)
+        async let myBills = gateway.getBills(userId: user.id)
+        async let sharedBills = gateway.getSharedBills(userId: user.id)
+        let newBills = try await myBills + sharedBills
+
+        let difference = newBills.difference(from: bills)
+
+        bills = bills.applying(difference) ?? []
     }
 
     @MainActor

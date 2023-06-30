@@ -197,4 +197,13 @@ struct RemoteGateway: Gateway {
 
         _ = try await request.response()
     }
+
+    func getSharedBills(userId: User.ID) async throws -> [Bill] {
+        var request = GetSharedBillsRequest()
+        request.userId = userId
+
+        let response = try await request.response()
+
+        return response.bills.map(Bill.init)
+    }
 }

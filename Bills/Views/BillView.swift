@@ -10,12 +10,28 @@ import SwiftUI
 struct BillView: View {
 
     var bill: Bill
+    var userId: User.ID
 
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
-                Text(bill.provider.rawValue.capitalized)
-                    .font(.headline)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(bill.provider.rawValue.capitalized)
+                        .font(.headline)
+
+                    if bill.isShared {
+                        Group {
+                            if bill.isOwner(userId: userId) {
+                                Text("Shared with \(bill.viewersCount) user(s)")
+                            } else {
+                                Text("Shared by \(bill.client.name)")
+                            }
+                        }
+                        .font(.caption)
+                        .italic()
+                        .foregroundColor(.secondary)
+                    }
+                }
 
                 VStack(alignment: .leading) {
                     ForEach(bill.services) { service in
@@ -42,6 +58,6 @@ struct BillView_Previews: PreviewProvider {
             services: [
                 .init(id: "s1", title: "Serv. reparatii", price: 20, currencyCode: "RON")
             ],
-            currencyCode: "RON"))
+            currencyCode: "RON"), userId: "u2")
     }
 }

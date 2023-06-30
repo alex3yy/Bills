@@ -24,7 +24,10 @@ struct UpdateSharedBillRequest: RepositoryRequest {
                 .collection("bills")
                 .document(billId)
 
-            billsDocumentsRef.updateData(["viewersUids": viewerIds])
+            billsDocumentsRef.updateData([
+                "isShared": !viewerIds.isEmpty,
+                "viewersUids": viewerIds
+            ])
 
             return UpdateSharedBillResponse()
         }

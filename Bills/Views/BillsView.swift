@@ -20,7 +20,7 @@ struct BillsView: View {
                     NavigationLink {
                         Text("Bill Detail View")
                     } label: {
-                        BillView(bill: bill)
+                        BillView(bill: bill, userId: billsModel.user?.id ?? "")
                     }
                     .contextMenu {
                         Button {
@@ -32,8 +32,14 @@ struct BillsView: View {
                 }
             }
             .navigationTitle("Bills")
+            .animation(.default, value: billsModel.bills)
             .task {
-                getBills()
+                isLoadingBills = true
+                await getBills()
+                isLoadingBills = false
+            }
+            .refreshable {
+                await getBills()
             }
             .overlay {
                 if isLoadingBills {
@@ -68,16 +74,12 @@ struct BillsView: View {
         }
     }
 
-    private func getBills() {
-        Task {
-            do {
-                isLoadingBills = true
-                try await billsModel.getBills()
-                isLoadingBills = false
-            } catch {
-                isLoadingBills = false
-                print(error)
-            }
+    private func getBills() async {
+        do {
+            try await billsModel.getBills()
+        } catch {
+            isLoadingBills = false
+            print(error)
         }
     }
 }
