@@ -21,8 +21,7 @@ struct BillsView: View {
                     path.append(bill)
                 } label: {
                     BillView(bill: bill, userId: billsModel.user?.id ?? "") {
-                        try await billsModel.payBill(billId: bill.id)
-                        try await billsModel.getBills()
+                        try await payBill(billId: bill.id)
                     }
                 }
                 .buttonStyle(.plain)
@@ -35,7 +34,11 @@ struct BillsView: View {
                 }
             }
             .navigationDestination(for: Bill.self) { bill in
-                Text("Bill Detail View")
+                BillDetailView(bill: bill) {
+                    navigationModel.presentConnectionsListView(for: bill)
+                } payAction: {
+                    try await payBill(billId: bill.id)
+                }
             }
             .navigationTitle("Bills")
             .animation(.default, value: billsModel.bills)
@@ -65,17 +68,17 @@ struct BillsView: View {
                     }
                 }
             }
-            .sheet(item: $navigationModel.selectedBillForSharing) { bill in
-                NavigationStack {
-                    BillShareView(bill: bill)
-                        .navigationTitle("Share Bill")
-                }
+        }
+        .sheet(item: $navigationModel.selectedBillForSharing) { bill in
+            NavigationStack {
+                BillShareView(bill: bill)
+                    .navigationTitle("Share Bill")
             }
-            .sheet(isPresented: $navigationModel.isPresentingAddBillView) {
-                NavigationStack {
-                    AddBillView()
-                        .navigationTitle("Add Bill")
-                }
+        }
+        .sheet(isPresented: $navigationModel.isPresentingAddBillView) {
+            NavigationStack {
+                AddBillView()
+                    .navigationTitle("Add Bill")
             }
         }
     }
@@ -87,6 +90,11 @@ struct BillsView: View {
             isLoadingBills = false
             print(error)
         }
+    }
+
+    private func payBill(billId: Bill.ID) async throws {
+        try await billsModel.payBill(billId: billId)
+        try await billsModel.getBills()
     }
 }
 
