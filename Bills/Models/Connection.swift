@@ -8,13 +8,13 @@
 import Foundation
 
 extension Connection {
-    enum Role {
+    enum Role: Equatable {
         case tenant
         case landlord
     }
 }
 
-struct Connection: Identifiable {
+struct Connection: Identifiable, Equatable {
     var id: String {
         user.id
     }

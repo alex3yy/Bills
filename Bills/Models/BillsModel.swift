@@ -258,7 +258,9 @@ final class BillsModel: ObservableObject {
     func getUserConnections() async throws {
         guard let user else { fatalError("No current user.") }
 
-        connections = try await gateway.getUserConnections(userId: user.id)
+        let newConnections = try await gateway.getUserConnections(userId: user.id)
+        let difference = newConnections.difference(from: connections)
+        connections = connections.applying(difference) ?? []
     }
 
     @MainActor

@@ -44,12 +44,15 @@ struct ConnectionsView: View {
                 }
             }
             .navigationTitle("Connections")
+            .animation(.default, value: isLoadingConnections)
             .overlay {
-                if isLoadingConnections {
-                    ProgressView()
-                } else if billsModel.connections.isEmpty {
-                    Text("You have no connections yet.")
-                        .foregroundColor(.secondary)
+                VStack {
+                    if isLoadingConnections {
+                        ProgressView()
+                    } else if billsModel.connections.isEmpty {
+                        Text("You have no connections yet.")
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
             .task {
