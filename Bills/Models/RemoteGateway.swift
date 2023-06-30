@@ -191,7 +191,7 @@ struct RemoteGateway: Gateway {
     }
 
     func addSharedBill(viewerIds: [Connection.ID], billId: Bill.ID) async throws {
-        var request = AddSharedBillRequest()
+        var request = UpdateSharedBillRequest()
         request.viewerIds = viewerIds
         request.billId = billId
 
