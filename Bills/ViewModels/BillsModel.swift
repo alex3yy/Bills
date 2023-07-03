@@ -182,7 +182,7 @@ final class BillsModel: ObservableObject {
 
     @MainActor
     func deleteUser(_ userID: String) async throws {
-        // Mark user as deleted.
+        // Delete user's account and its data (bills, connections, shared).
         _ = try await gateway.deleteUser(id: userID)
     }
 
