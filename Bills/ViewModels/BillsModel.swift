@@ -216,14 +216,14 @@ final class BillsModel: ObservableObject {
 
     @MainActor
     func invitedUser(for id: User.ID) async throws -> Invitation.Status? {
-        guard let user else { fatalError("No current user.") }
+        guard let user else { return nil }
 
         return try await gateway.invitedUser(senderId: user.id, receiverId: id)
     }
 
     @MainActor
     func getUserInvitations() async throws {
-        guard let user else { fatalError("No current user.") }
+        guard let user else { return }
 
         invitations = []
 
@@ -235,7 +235,7 @@ final class BillsModel: ObservableObject {
 
     @MainActor
     func deleteUserInvitation(for id: User.ID) async throws {
-        guard let user else { fatalError("No current user.") }
+        guard let user else { return }
 
         try await gateway.deleteUserInvitation(senderId: user.id, receiverId: id)
     }
@@ -243,7 +243,7 @@ final class BillsModel: ObservableObject {
     // MARK: - Connections user requests
     @MainActor
     func acceptUserInvitation(for id: User.ID) async throws {
-        guard let user else { fatalError("No current user.") }
+        guard let user else { return }
 
         try await gateway.addUserConnection(senderId: id, receiverId: user.id)
         try await deleteUserInvitation(for: id)
@@ -252,14 +252,14 @@ final class BillsModel: ObservableObject {
 
     @MainActor
     func connectedUser(for id: User.ID) async throws -> Bool {
-        guard let user else { fatalError("No current user.") }
+        guard let user else { return false }
 
         return try await gateway.connectedUser(senderId: user.id, receiverId: id)
     }
 
     @MainActor
     func getUserConnections() async throws {
-        guard let user else { fatalError("No current user.") }
+        guard let user else { return }
 
         let newConnections = try await gateway.getUserConnections(userId: user.id)
         let sortedConnections = newConnections.sorted { lhs, rhs in
@@ -272,14 +272,14 @@ final class BillsModel: ObservableObject {
 
     @MainActor
     func deleteUserConnection(for id: User.ID) async throws {
-        guard let user else { fatalError("No current user.") }
+        guard let user else { return }
 
         try await gateway.deleteUserConnection(senderId: user.id, receiverId: id)
     }
 
     @MainActor
     func deleteUserConnections(atOffsets indexSet: IndexSet) async throws {
-        guard let user else { fatalError("No current user.") }
+        guard let user else { return }
 
         for index in indexSet {
             let id = connections[index].id
@@ -294,14 +294,14 @@ final class BillsModel: ObservableObject {
 
     @MainActor
     func addBill(_ bill: Bill) async throws {
-        guard let user else { fatalError("No current user.") }
+        guard let user else { return }
 
         try await gateway.addBill(userId: user.id, bill: bill)
     }
 
     @MainActor
     func getBills() async throws {
-        guard let user else { fatalError("No current user.") }
+        guard let user else { return }
 
         async let myBills = gateway.getBills(userId: user.id)
         async let sharedBills = gateway.getSharedBills(userId: user.id)
