@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum Tab {
-    case home
+//    case home
     case bills
     case connections
     case account
@@ -22,11 +22,11 @@ struct DashboardView: View {
 
     var body: some View {
         TabView(selection: $navigationModel.selectedTab) {
-            Text("Home")
-                .tabItem {
-                    Label("My List", systemImage: "house.fill")
-                }
-                .tag(Tab.home)
+//            Text("Home")
+//                .tabItem {
+//                    Label("My List", systemImage: "house.fill")
+//                }
+//                .tag(Tab.home)
             BillsView()
                 .tabItem {
                     Label("Bills", systemImage: "doc.text.fill")
