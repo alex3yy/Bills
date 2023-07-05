@@ -300,7 +300,26 @@ final class BillsModel: ObservableObject {
         async let sharedBills = gateway.getSharedBills(userId: user.id)
         let newBills = try await myBills + sharedBills
 
-        let difference = newBills.difference(from: bills)
+        let sortedByTypeBills = newBills.sorted { lhs, rhs in
+            switch (lhs.paymentStatus, rhs.paymentStatus) {
+            case (.unpaid, .unpaid):
+                return lhs.dueDate > rhs.dueDate
+            case (.unpaid, _):
+                return true
+            case (.due, .unpaid):
+                return false
+            case (.due, .due):
+                return lhs.dueDate < rhs.dueDate
+            case (.due, _):
+                return true
+            case (.paid, .paid):
+                return lhs.dueDate < rhs.dueDate
+            case (.paid, _):
+                return false
+            }
+        }
+
+        let difference = sortedByTypeBills.difference(from: bills)
 
         bills = bills.applying(difference) ?? []
     }
