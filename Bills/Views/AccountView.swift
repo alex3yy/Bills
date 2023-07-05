@@ -33,6 +33,18 @@ struct AccountView: View {
                             Text(verbatim: user.email)
                                 .font(.callout)
                                 .foregroundColor(.secondary)
+
+                            Text(verbatim: user.id)
+                                .font(.callout)
+                                .italic()
+                                .foregroundColor(.secondary)
+                                .contextMenu {
+                                    Button {
+                                        UIPasteboard.general.string = user.id
+                                    } label: {
+                                        Label("Copy", systemImage: "doc.on.doc")
+                                    }
+                                }
                         }
 
                         Button {
