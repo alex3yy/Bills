@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum BillsDisplayType {
+    case all
+    case shared
+}
+
 struct BillsView: View {
     @EnvironmentObject private var billsModel: BillsModel
     @EnvironmentObject private var navigationModel: NavigationModel
@@ -14,9 +19,20 @@ struct BillsView: View {
     @State private var isLoadingBills: Bool = false
     @State private var path = NavigationPath()
 
+    @State private var billsDisplayType: BillsDisplayType = .all
+
+    private var bills: [Bill] {
+        switch billsDisplayType {
+        case .all:
+            return billsModel.bills
+        case .shared:
+            return billsModel.bills.filter(\.isShared)
+        }
+    }
+
     var body: some View {
         NavigationStack(path: $path) {
-            List(billsModel.bills) { bill in
+            List(bills) { bill in
                 Button {
                     path.append(bill)
                 } label: {
@@ -43,7 +59,7 @@ struct BillsView: View {
                 }
             }
             .navigationTitle("Bills")
-            .animation(.default, value: billsModel.bills)
+            .animation(.default, value: bills)
             .task {
                 isLoadingBills = true
                 await getBills()
@@ -56,7 +72,7 @@ struct BillsView: View {
                 VStack {
                     if isLoadingBills {
                         ProgressView()
-                    } else if billsModel.bills.isEmpty {
+                    } else if bills.isEmpty {
                         Text("You have no bills yet.")
                             .foregroundColor(.secondary)
                     }
@@ -70,6 +86,15 @@ struct BillsView: View {
                         Label("Plus", systemImage: "plus")
                             .labelStyle(.iconOnly)
                     }
+                }
+
+                ToolbarItem(placement: .principal) {
+                    Picker("What is your favorite color?", selection: $billsDisplayType) {
+                        Text("All").tag(BillsDisplayType.all)
+                        Text("Shared").tag(BillsDisplayType.shared)
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(width: 150)
                 }
             }
         }
