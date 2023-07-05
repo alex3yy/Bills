@@ -18,6 +18,8 @@ final class NavigationModel: ObservableObject {
         selectedTab = .home
         isPresentingAddBillView = false
         isPresentingAddConnectionsView = false
+        isPresentingUserInvitationsListView = false
+        selectedBillForSharing = nil
     }
 
     func presentAddBillView() {

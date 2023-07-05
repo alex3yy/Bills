@@ -135,6 +135,9 @@ final class BillsModel: ObservableObject {
         user = nil
         isUserStored = false
         authState = .signedOut
+        connections = []
+        bills = []
+        searchedUser = nil
     }
 
     /// Stores user's data into the database.
@@ -259,7 +262,11 @@ final class BillsModel: ObservableObject {
         guard let user else { fatalError("No current user.") }
 
         let newConnections = try await gateway.getUserConnections(userId: user.id)
-        let difference = newConnections.difference(from: connections)
+        let sortedConnections = newConnections.sorted { lhs, rhs in
+            lhs.user.name < rhs.user.name
+        }
+
+        let difference = sortedConnections.difference(from: connections)
         connections = connections.applying(difference) ?? []
     }
 

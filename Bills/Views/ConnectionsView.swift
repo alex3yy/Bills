@@ -15,11 +15,15 @@ struct ConnectionsView: View {
     @State private var isLoadingConnections: Bool = false
 
     private var tenants: [Connection] {
-        billsModel.connections.filter(\.isTenant)
+        billsModel.connections.filter(\.isTenant).sorted { lhs, rhs in
+            lhs.user.name < rhs.user.name
+        }
     }
 
     private var landlords: [Connection] {
-        billsModel.connections.filter(\.isLandlord)
+        billsModel.connections.filter(\.isLandlord).sorted { lhs, rhs in
+            lhs.user.name < rhs.user.name
+        }
     }
 
     var body: some View {
