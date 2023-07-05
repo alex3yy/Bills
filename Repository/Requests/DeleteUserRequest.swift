@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct DeleteUserResponse: RepositoryResponse {
 
@@ -18,18 +19,24 @@ struct DeleteUserRequest: RepositoryRequest {
     func response() async throws -> DeleteUserResponse {
         try await RepositoryService.performRequest { databaseRef in
             let userDocumentRef = databaseRef.collection("users").document(id)
+            let userConnectionsDocumentRef = databaseRef.collection("users")
+                .document(id)
+                .collection("connections")
             let connectionsDocumentsRef = databaseRef.collectionGroup("connections")
                 .whereField("user.uid", isEqualTo: id)
             let billsDocumentRef = databaseRef.collection("bills")
                 .whereField("client.uid", isEqualTo: id)
-            let sharedBillsDocumentRef = databaseRef.collection("bills")
-                .whereField("viewersUids", arrayContains: id)
 
+            let userConnectionsDocuments = try await userConnectionsDocumentRef.getDocuments()
             let connectionsDocuments = try await connectionsDocumentsRef.getDocuments()
             let billsDocuments = try await billsDocumentRef.getDocuments()
-            let sharedBillsDocuments = try await sharedBillsDocumentRef.getDocuments()
 
             let batch = databaseRef.batch()
+
+            for document in userConnectionsDocuments.documents {
+                let documentRef = document.reference
+                batch.deleteDocument(documentRef)
+            }
 
             batch.deleteDocument(userDocumentRef)
 
@@ -43,12 +50,10 @@ struct DeleteUserRequest: RepositoryRequest {
                 batch.deleteDocument(documentRef)
             }
 
-            for document in sharedBillsDocuments.documents {
-                let documentRef = document.reference
-                batch.deleteDocument(documentRef)
-            }
-
             try await batch.commit()
+
+            let deleteSharedBillsRequest = DeleteSharedBillsForUserRequest(userId: id)
+            _ = try await deleteSharedBillsRequest.response()
 
             return DeleteUserResponse()
         }
