@@ -15,6 +15,7 @@ struct BillDetailView: View {
     var payAction: () async throws -> Void
 
     @State private var isPayingBill: Bool = false
+    @State private var isPaymentSuccessful: Bool = false
 
     var body: some View {
         Form {
@@ -43,7 +44,7 @@ struct BillDetailView: View {
                 LabeledContent("Total", value: bill.price, format: .currency(code: "RON"))
             }
 
-            if !bill.isPaid {
+            if !isPaymentSuccessful {
                 Button {
                     payBill()
                 } label: {
@@ -59,6 +60,7 @@ struct BillDetailView: View {
                 }
             }
         }
+        .animation(.default, value: isPaymentSuccessful)
         .navigationTitle("Details")
         .toolbar {
             if bill.isOwner(userId: userId) {
@@ -80,6 +82,7 @@ struct BillDetailView: View {
             do {
                 isPayingBill = true
                 try await payAction()
+                isPaymentSuccessful = true
                 isPayingBill = false
             } catch {
                 isPayingBill = false
