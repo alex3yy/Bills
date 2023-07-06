@@ -4,18 +4,5 @@
 <dict>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>Google</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.75667831367-id8vto6pb3p2euhghsrlqto9ugu0gkm1</string>
-			</array>
-		</dict>
-	</array>
 </dict>
 </plist>
