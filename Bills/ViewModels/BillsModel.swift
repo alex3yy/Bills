@@ -310,7 +310,7 @@ final class BillsModel: ObservableObject {
         let sortedByTypeBills = newBills.sorted { lhs, rhs in
             switch (lhs.paymentStatus, rhs.paymentStatus) {
             case (.unpaid, .unpaid):
-                return lhs.dueDate > rhs.dueDate
+                return lhs.dueDate < rhs.dueDate
             case (.unpaid, _):
                 return true
             case (.due, .unpaid):
