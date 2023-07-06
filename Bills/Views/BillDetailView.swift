@@ -44,7 +44,7 @@ struct BillDetailView: View {
                 LabeledContent("Total", value: bill.price, format: .currency(code: "RON"))
             }
 
-            if !isPaymentSuccessful {
+            if !isPaymentSuccessful && !bill.isPaid {
                 Button {
                     payBill()
                 } label: {
